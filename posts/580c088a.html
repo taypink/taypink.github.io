@@ -1,0 +1,435 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>BGP | taypink</title><meta name="author" content="taypink"><meta name="copyright" content="taypink"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="十三步选路          步骤 Cisco 原则 华为 原则 核心判定逻辑 &#x2F; 记忆点     1 下一跳不可达的路由直接丢弃 下一跳不可达的路由直接丢弃 前置条件：下一跳（Next_Hop）不可达则直接淘汰。   2 Weight（权重）最高 协议首选值（Preferred-Value）最高 均为本地私有属性，仅在本地有效，不传递。数值越">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BGP">
+<meta property="og:url" content="https://taypink.github.io/posts/580c088a.html">
+<meta property="og:site_name" content="taypink">
+<meta property="og:description" content="十三步选路          步骤 Cisco 原则 华为 原则 核心判定逻辑 &#x2F; 记忆点     1 下一跳不可达的路由直接丢弃 下一跳不可达的路由直接丢弃 前置条件：下一跳（Next_Hop）不可达则直接淘汰。   2 Weight（权重）最高 协议首选值（Preferred-Value）最高 均为本地私有属性，仅在本地有效，不传递。数值越">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/98171449?v=4">
+<meta property="article:published_time" content="2026-06-07T08:38:16.000Z">
+<meta property="article:modified_time" content="2026-06-08T03:02:47.172Z">
+<meta property="article:author" content="taypink">
+<meta property="article:tag" content="taypink">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://avatars.githubusercontent.com/u/98171449?v=4"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://taypink.github.io/posts/580c088a.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"距离这篇文章发布有","messageNext":"天了，请注意文章时效性。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-right"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BGP',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2026-06-08 11:02:47'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/copyright.css"><link rel="stylesheet" href="/css/fish.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">66</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top_cute.png')"><nav id="nav"><span id="blog-info"><a href="/" title="taypink"><span class="site-name">taypink</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">BGP<a class="post-edit-link" href="null_posts/Network/RS/BGP.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-07T08:38:16.000Z" title="发表于 2026-06-07 16:38:16">2026-06-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-06-08T03:02:47.172Z" title="更新于 2026-06-08 11:02:47">2026-06-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Network/">Network</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Network/rs/">R&amp;S</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="BGP"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="十三步选路">十三步选路</h2>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">步骤</th>
+<th style="text-align: left;">Cisco 原则</th>
+<th style="text-align: left;">华为 原则</th>
+<th style="text-align: left;">核心判定逻辑 / 记忆点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;">下一跳不可达的路由直接丢弃</td>
+<td style="text-align: left;">下一跳不可达的路由直接丢弃</td>
+<td
+style="text-align: left;">前置条件：下一跳（Next_Hop）不可达则直接淘汰。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;">Weight（权重）最高</td>
+<td style="text-align: left;">协议首选值（Preferred-Value）最高</td>
+<td
+style="text-align: left;">均为本地私有属性，仅在本地有效，不传递。数值越大越好。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;">Local-Preference（本地优先级）最高</td>
+<td style="text-align: left;">Local-Preference（本地优先级）最高</td>
+<td style="text-align: left;">AS 内部传播，控制流量如何<strong>流出
+AS</strong>。数值越大越好。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: left;">本地发起的路由（next hop = 0.0.0.0）</td>
+<td style="text-align: left;">手动聚合 &gt; 自动聚合 &gt; network &gt;
+import</td>
+<td
+style="text-align: left;">本地生成的路由优先级高于从邻居学来的路由。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: left;">AS_Path 长度最短的路由</td>
+<td style="text-align: left;">AS_Path 长度最短的路由</td>
+<td style="text-align: left;">经过的 AS
+数量越少越好（可用于防环与路径评判）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: left;">Origin 属性（IGP &gt; EGP &gt;
+Incomplete）</td>
+<td style="text-align: left;">Origin 属性（IGP &gt; EGP &gt;
+Incomplete）</td>
+<td style="text-align: left;">路由起源类型：<code>i</code> 大于
+<code>e</code> 大于 <code>?</code>。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>7</strong></td>
+<td style="text-align: left;">MED 值最低的路由</td>
+<td style="text-align: left;">MED 值最低的路由</td>
+<td style="text-align: left;">告知外部 AS 如何<strong>流入本
+AS</strong>。数值越小越好。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>8</strong></td>
+<td style="text-align: left;">EBGP 路由 &gt; IBGP 路由</td>
+<td style="text-align: left;">EBGP 路由 &gt; IBGP 路由</td>
+<td
+style="text-align: left;">外部邻居（EBGP）传来的路由优先级高于内部邻居（IBGP）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>9</strong></td>
+<td style="text-align: left;">到 BGP 下一跳的 IGP 开销（Cost）最小</td>
+<td style="text-align: left;">到 BGP 下一跳的 IGP 开销（Cost）最小</td>
+<td
+style="text-align: left;">比较到下一跳地址的内部网关协议（如OSPF）开销，越小越好。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>10</strong></td>
+<td style="text-align: left;">存在多条路径时，执行负载分担</td>
+<td style="text-align: left;">存在多条路径时，执行负载分担</td>
+<td
+style="text-align: left;">如果配置了多路径平衡（Multipath），在此处将流量分摊。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>11</strong></td>
+<td style="text-align: left;">外部路由中：最先收到的 EBGP 路由</td>
+<td style="text-align: left;">Cluster_List 长度最短的路由</td>
+<td
+style="text-align: left;">思科此处锁定最先收到的路由（稳定第一）；华为直接比反射次数。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>12</strong></td>
+<td style="text-align: left;">BGP Router ID 最小的路由器发布的路由</td>
+<td style="text-align: left;">Originator_ID 最小的路由</td>
+<td style="text-align: left;">比较路由器的 Router ID
+或反射器环境下的起源 ID，越小越好。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>13</strong></td>
+<td style="text-align: left;">Cluster_List 长度最短的路由</td>
+<td style="text-align: left;">Router ID 最小的路由器发布的路由</td>
+<td style="text-align: left;">思科在此时才比较反射器路径长度。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>14</strong></td>
+<td style="text-align: left;">邻居接口 IP 地址最小的路由</td>
+<td style="text-align: left;">Peer IP（邻居接口IP）地址最小的路由</td>
+<td style="text-align: left;">最后的兜底条款，建立邻居的接口 IP
+地址越小越好。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="as_path"><code>AS_PATH</code></h4>
+<h5 id="regex-正则表达式">Regex-正则表达式</h5>
+<p><code>^</code>：代表开头（匹配直接邻居）</p>
+<p><code>$</code>：代表结尾（匹配始发 AS）</p>
+<p><code>_</code>：代表符号边界（匹配包含关系）</p>
+<p><code>^$</code>：代表空（匹配本地始发路由）</p>
+<h5 id="传递顺序">传递顺序</h5>
+<p>从右到左</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    %% 纯净样式定义</span><br><span class="line">    classDef cleanStyle fill:none,stroke:#333,stroke-width:1px;</span><br><span class="line"></span><br><span class="line">    R1[生成原始路由] --&gt; PATH1[&quot;&lt;b&gt;AS_Path: 空&lt;/b&gt;&lt;br&gt;(本地发布)&quot;]:::cleanStyle</span><br><span class="line">    </span><br><span class="line">    PATH1 -- &quot;跨越边界到 AS 200&quot; --&gt; PATH2[&quot;&lt;b&gt;AS_Path: &lt;font color=&#x27;#ff4d4d&#x27;&gt;65500&lt;/font&gt;&lt;/b&gt;&lt;br&gt;(65500被写在最左边)&quot;]:::cleanStyle</span><br><span class="line">    </span><br><span class="line">    PATH2 -- &quot;跨越边界到 AS 100&quot; --&gt; PATH3[&quot;&lt;b&gt;AS_Path: &lt;font color=&#x27;#ff9900&#x27;&gt;200&lt;/font&gt; 65500&lt;/b&gt;&lt;br&gt;(新邻居200塞到最左边)&quot;]:::cleanStyle</span><br><span class="line">    </span><br><span class="line">    PATH3 -- &quot;最后传给我们的交换机&quot; --&gt; PATH4[&quot;&lt;b&gt;最终 AS_Path: &lt;font color=&#x27;#2ecc71&#x27;&gt;100&lt;/font&gt; 200 65500&lt;/b&gt;&lt;br&gt;(直接邻居100塞到最左边)&quot;]:::cleanStyle</span><br><span class="line"></span><br><span class="line">    %% 移出所有子图背景</span><br><span class="line">    style PATH1 fill:none</span><br><span class="line">    style PATH2 fill:none</span><br><span class="line">    style PATH3 fill:none</span><br><span class="line">    style PATH4 fill:none</span><br></pre></td></tr></table></figure>
+<h2 id="报文类型">报文类型</h2>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 5%" />
+<col style="width: 28%" />
+<col style="width: 37%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Message Type</th>
+<th>Type Code</th>
+<th>发送时机与触发条件</th>
+<th>核心承载内容</th>
+<th>核心作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OPEN</td>
+<td>1</td>
+<td>TCP 连接建立成功后发送的第一个报文</td>
+<td>BGP版本、本端AS号、Hold Time、Router ID、可选参数（如MP-BGP）</td>
+<td>协商参数，建立邻居关系</td>
+</tr>
+<tr>
+<td>KEEPALIVE</td>
+<td>2</td>
+<td>邻居建立时确认，以及后续周期性发送（默认60s）</td>
+<td>无数据正文（仅19字节头部）</td>
+<td>维持邻居关系（心跳机制）</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>3</td>
+<td>网络拓扑发生变化或路由失效时（触发式）</td>
+<td>撤销路由前缀、路径属性（Path Attributes）、可达路由前缀（NLRI）</td>
+<td>通告、更新或撤销路由</td>
+</tr>
+<tr>
+<td>NOTIFICATION</td>
+<td>4</td>
+<td>运行或协商过程中检测到任何错误时</td>
+<td>错误代码（Error Code）、错误子代码、错误数据</td>
+<td>报告错误并立即断开连接</td>
+</tr>
+<tr>
+<td>ROUTE-REFRESH</td>
+<td>5</td>
+<td>本地路由策略改变，需要重新过滤路由时（触发式）</td>
+<td>地址族标识符（AFI/SAFI）</td>
+<td>动态请求邻居重发路由（不中断连接）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="报文交互">报文交互</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    autonumber</span><br><span class="line">    participant Peer_A as BGP 路由器 A</span><br><span class="line">    participant Peer_B as BGP 路由器 B</span><br><span class="line"></span><br><span class="line">    Note over Peer_A, Peer_B: 【第一阶段：TCP 三次握手建立物理连接】</span><br><span class="line">    Peer_A -&gt;&gt; Peer_B: TCP 连接请求 (Dst Port: 179)</span><br><span class="line">    Peer_B --&gt;&gt; Peer_A: TCP 确认并建立连接</span><br><span class="line"></span><br><span class="line">    Note over Peer_A, Peer_B: 【第二阶段：BGP 邻居参数协商】</span><br><span class="line">    Peer_A -&gt;&gt; Peer_B: OPEN 报文 (携带有本端 AS、Router ID 等)</span><br><span class="line">    Peer_B -&gt;&gt; Peer_A: OPEN 报文 (携带有本端 AS、Router ID 等)</span><br><span class="line">    </span><br><span class="line">    Note over Peer_A, Peer_B: 【第三阶段：邻居关系确认】</span><br><span class="line">    Peer_B -&gt;&gt; Peer_A: KEEPALIVE 报文 (确认 A 的 OPEN 参数合规)</span><br><span class="line">    Peer_A -&gt;&gt; Peer_B: KEEPALIVE 报文 (确认 B 的 OPEN 参数合规)</span><br><span class="line">    Note over Peer_A, Peer_B: 双方状态进入 Established (邻居建立成功)</span><br><span class="line"></span><br><span class="line">    Note over Peer_A, Peer_B: 【第四阶段：路由交互与日常维护】</span><br><span class="line">    Peer_A -&gt;&gt; Peer_B: UPDATE 报文 (通告新路由/路径属性)</span><br><span class="line">    Peer_B -&gt;&gt; Peer_A: UPDATE 报文 (撤销失效路由)</span><br><span class="line">    Note over Peer_A, Peer_B: 周期性维持心跳 (默认每 60 秒)</span><br><span class="line">    Peer_A -&gt;&gt; Peer_B: KEEPALIVE 报文</span><br><span class="line">    Peer_B -&gt;&gt; Peer_A: KEEPALIVE 报文</span><br><span class="line"></span><br><span class="line">    Note over Peer_A, Peer_B: 【特殊阶段：策略变更(非必须)】</span><br><span class="line">    Peer_A -&gt;&gt; Peer_B: ROUTE-REFRESH 报文 (请求 B 重发路由)</span><br><span class="line">    Peer_B -&gt;&gt; Peer_A: UPDATE 报文 (重新发送路由)</span><br><span class="line"></span><br><span class="line">    Note over Peer_A, Peer_B: 【故障发生：差错处理】</span><br><span class="line">    Note over Peer_A: 假设 A 检测到 Hold Timer 超时或报文错误</span><br><span class="line">    Peer_A -&gt;&gt; Peer_B: NOTIFICATION 报文 (携带错误代码)</span><br><span class="line">    Note over Peer_A, Peer_B: BGP 连接立即断开，状态回退到 Idle</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://taypink.github.io">taypink</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://taypink.github.io/posts/580c088a.html">https://taypink.github.io/posts/580c088a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://taypink.github.io" target="_blank">taypink</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">taypink</div><div class="author-info__description">懒得写描述</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">66</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/taypink" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E6%AD%A5%E9%80%89%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">十三步选路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#as_path"><span class="toc-number">1.0.1.</span> <span class="toc-text">AS_PATH</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#regex-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">Regex-正则表达式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.0.1.2.</span> <span class="toc-text">传递顺序</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">报文类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%A5%E6%96%87%E4%BA%A4%E4%BA%92"><span class="toc-number">2.1.</span> <span class="toc-text">报文交互</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2026 By taypink</div><div class="footer_custom_text">别翻了，到底啦！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><script async src="/js/title.js"></script><script src="/js/category-fold.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
