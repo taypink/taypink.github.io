@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Multicast | taypink</title><meta name="author" content="taypink"><meta name="copyright" content="taypink"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="111">
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Multicast | taypink</title><meta name="author" content="taypink"><meta name="copyright" content="taypink"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="基础架构与底层原理 组播控制与数据平面 流程图 1234567891011121314151617[   Source     组播源]    ：发出数据，无法感知拓扑       │       │ (数据平面：发送组播流量)       ▼[     FHR    First-Hop Router ] →控制面：负责接收组播源的数据流，并向网络骨干通告（PIM 注册机制）。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Multicast">
 <meta property="og:url" content="https://taypink.github.io/posts/561f759a.html">
 <meta property="og:site_name" content="taypink">
-<meta property="og:description" content="111">
+<meta property="og:description" content="基础架构与底层原理 组播控制与数据平面 流程图 1234567891011121314151617[   Source     组播源]    ：发出数据，无法感知拓扑       │       │ (数据平面：发送组播流量)       ▼[     FHR    First-Hop Router ] →控制面：负责接收组播源的数据流，并向网络骨干通告（PIM 注册机制）。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/98171449?v=4">
 <meta property="article:published_time" content="2026-06-28T17:12:18.000Z">
-<meta property="article:modified_time" content="2026-06-28T17:12:35.211Z">
+<meta property="article:modified_time" content="2026-06-30T16:30:46.045Z">
 <meta property="article:author" content="taypink">
 <meta property="article:tag" content="taypink">
 <meta name="twitter:card" content="summary">
@@ -55,8 +55,8 @@
   isPost: true,
   isHome: false,
   isHighlightShrink: true,
-  isToc: false,
-  postUpdate: '2026-06-29 01:12:35'
+  isToc: true,
+  postUpdate: '2026-07-01 00:30:46'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -157,8 +157,322 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top_cute.png')"><nav id="nav"><span id="blog-info"><a href="/" title="taypink"><span class="site-name">taypink</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Multicast</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-28T17:12:18.000Z" title="发表于 2026-06-29 01:12:18">2026-06-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-06-28T17:12:35.211Z" title="更新于 2026-06-29 01:12:35">2026-06-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Network/">Network</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Network/rs/">R&amp;S</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Multicast"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>111</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://taypink.github.io">taypink</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://taypink.github.io/posts/561f759a.html">https://taypink.github.io/posts/561f759a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://taypink.github.io" target="_blank">taypink</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">taypink</div><div class="author-info__description">懒得写描述</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/taypink" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="sticky_layout"></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2026 By taypink</div><div class="footer_custom_text">别翻了，到底啦！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top_cute.png')"><nav id="nav"><span id="blog-info"><a href="/" title="taypink"><span class="site-name">taypink</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Multicast</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-28T17:12:18.000Z" title="发表于 2026-06-29 01:12:18">2026-06-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-06-30T16:30:46.045Z" title="更新于 2026-07-01 00:30:46">2026-07-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Network/">Network</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Network/rs/">R&amp;S</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Multicast"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="基础架构与底层原理">基础架构与底层原理</h2>
+<h3 id="组播控制与数据平面-流程图">组播控制与数据平面 流程图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[   Source     组播源]    ：发出数据，无法感知拓扑</span><br><span class="line">       │</span><br><span class="line">       │ (数据平面：发送组播流量)</span><br><span class="line">       ▼</span><br><span class="line">[     FHR    First-Hop Router ] →控制面：负责接收组播源的数据流，并向网络骨干通告（PIM 注册机制）。</span><br><span class="line">								 数据面：作为组播转发树的起点（根节点）</span><br><span class="line">       │</span><br><span class="line">       │ ▲ PIM-SSM 协议 (建立 (S, G) 最短路径树 SPT)</span><br><span class="line">       │ │ 路由器之间对话：“兄弟，把源 S 发往组 G 的流量传给我！”</span><br><span class="line">       ▼</span><br><span class="line">[     LHR    Last-Hop Router ]  →控制面：运行 PIM 与上游联动；运行 IGMP 监听下游主机的需求。</span><br><span class="line">								 数据面：作为组播转发树的终点（叶子节点）。</span><br><span class="line">       │</span><br><span class="line">       │ ▲ IGMPv3 协议 (维护成员关系与源过滤)</span><br><span class="line">       │ │ 终端与路由器对话：“报告，我要点播/加入源 S 的组播组 G！”</span><br><span class="line">       ▼</span><br><span class="line">[ 接收者 Receiver ]</span><br></pre></td></tr></table></figure>
+<h3 id="组播地址体系">组播地址体系</h3>
+<blockquote>
+<p>D类地址32位，取开头8位为1110→224.0.0.0到239.255.255.255(组播地址范围)</p>
+<p>安全使用的地址范围：<u>239.0.0.0/8</u>（239.0.0.0~239.255.255.255）</p>
+</blockquote>
+<h4 id="地址划分">地址划分</h4>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr>
+<th>Range</th>
+<th>CIDR Fromat</th>
+<th>别名 / 服务模型</th>
+<th>核心特征与管理边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>224.0.0.0 ~ 224.0.0.255</td>
+<td>224.0.0.0/24</td>
+<td>预留地址</td>
+<td>IANA 预留(默认 TTL=1，不会被转发出本地网段，不跨路由器转发)。</td>
+</tr>
+<tr>
+<td>224.0.1.0<sub>231.255.255.255<br />233.0.0.0</sub>238.255.255.255</td>
+<td></td>
+<td>公网ASM 地址</td>
+<td>全网范围内有效。属于「任意源组播」（ASM），仅关心组地址，需依赖
+RP（汇聚点）构建转发树。</td>
+</tr>
+<tr>
+<td>232.0.0.0 ~ 232.255.255.255</td>
+<td>232.0.0.0/8</td>
+<td>公网SSM 地址</td>
+<td>全网范围内有效。默认用于「特定源组播」（SSM），主机加入时必须同时指定源和组
+(S, G)，无需建立 RP。</td>
+</tr>
+<tr>
+<td>239.0.0.0 ~ 239.255.255.255</td>
+<td>239.0.0.0/8</td>
+<td>本地管理组地址</td>
+<td>仅在本地管理域内有效。边界路由器默认隔离该流量。（类似于单播的私网
+IP，不同私网可重叠使用）。</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 48%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr>
+<th>特性</th>
+<th>Auto-RP (思科私有/多厂商兼容)</th>
+<th>BSR (公有标准)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>所属标准</td>
+<td>思科私有（IANA 注册为 Cisco-RP）</td>
+<td>IETF 标准 (PIMv2)</td>
+</tr>
+<tr>
+<td>使用地址</td>
+<td>224.0.1.39 &amp; 224.0.1.40</td>
+<td>224.0.0.13</td>
+</tr>
+<tr>
+<td>路由依赖</td>
+<td>属于常规组播数据，需要配置 Auto-RP Listener
+或稀疏-密集模式才能泛洪</td>
+<td>属于 PIM 协议报文，不依赖组播路由表，直接网络内逐跳泛洪</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>存量老网络、纯思科环境或与思科混组环境</td>
+<td>现代多厂商混合网络、全新设计的网络</td>
+</tr>
+</tbody>
+</table>
+<h4 id="mac地址映射冲突">MAC地址映射&amp;冲突</h4>
+<h2 id="igmp">IGMP</h2>
+<h3 id="igmp功能与运行边界">IGMP功能与运行边界</h3>
+<h4
+id="igmp的工作位置与报文封装ip协议号2">IGMP的工作位置与报文封装（IP协议号2)</h4>
+<blockquote>
+<p>运行在最后一公里的位置</p>
+</blockquote>
+<ul>
+<li>默认情况下，IGMP普遍组查询间隔为60s</li>
+</ul>
+<h4 id="组播路由表与igmp组表项的区别">组播路由表与IGMP组表项的区别</h4>
+<h3 id="igmp版本演进与机制对比">IGMP版本演进与机制对比</h3>
+<p><code>IGMPv1</code>：仅支持普遍组查询，成员「<strong>默默离开</strong>」，存在明显的带宽浪费与收敛延迟。</p>
+<p><code>IGMPv2</code>：增加「<strong>离开报文（Leave）</strong>」与「<strong>特定组查询</strong>」，实现毫秒级快速离组；引入查询器选举机制。</p>
+<p><code>IGMPv3</code>：由 ASM（任意源组播）向
+SSM（特定源组播）演进的基石，正式支持「<strong>指定源过滤</strong>」（INCLUDE/EXCLUDE）。</p>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th><strong>对比维度</strong></th>
+<th>IGMPv1</th>
+<th>v2</th>
+<th>v3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>支持的服务模型</td>
+<td>ASM</td>
+<td>ASM</td>
+<td>ASM、SSM</td>
+</tr>
+<tr>
+<td>核心报文类型</td>
+<td>1.普遍组查询(General Query)<br />2.成员报告(Membership_Report)</td>
+<td>1. 普遍组查询 2. 特定组查询 3. 成员报告 4. 离开报文</td>
+<td>1. 查询报文（包含普遍/特定组/特定源查询） 2.
+成员报告（包含多个组记录项）</td>
+</tr>
+<tr>
+<td>报文携带量</td>
+<td>单组单发。每个Report报文只能包含一个具体的组播组地址，无法一次性申报多个组播业务。</td>
+<td>单组单发。每个Report报文或Leave报文内部只能容纳一个具体的组播组地址。</td>
+<td>批量多发。单个Report报文允许打包封装多个组记录（Group
+Record），每个组记录内部可以携带多个源地址，实现一次性上报所有视听需求。</td>
+</tr>
+<tr>
+<td>查询器选举</td>
+<td>本身无选举机制。依赖三层组播路由协议（如 PIM 的
+DR）来充当查询器。</td>
+<td>独立选举机制：同一网段内接口 IP 地址最小者获胜。</td>
+<td>沿用 v2 的选举机制（低 IP 者获胜）。</td>
+</tr>
+<tr>
+<td>离组收敛机制</td>
+<td>默默离开。主机离组不发报文，路由器依靠老化定时器（默认
+130s）超时踢出成员。</td>
+<td>主动离开。主机发送临别报文，路由器触发特定组查询，收敛时间缩短至 2s
+左右。</td>
+<td>状态变更触发。通过发送改变源组关系的 Report
+报文告知，路由器触发特定源组查询。</td>
+</tr>
+<tr>
+<td>最大响应时间控制</td>
+<td>固定为 10s（报文头部无此字段，代码硬编码）。</td>
+<td>动态可调。报文头新增最大响应时间字段（单位：0.1s），默认 10s。</td>
+<td>动态可调。采用指数级扩充算法，支持比 v2 更大的响应延时范围。</td>
+</tr>
+<tr>
+<td>报告抑制机制</td>
+<td>开启。同一网段内其他主机收到相同的 Report 后，会抑制自己的 Report
+发送。</td>
+<td>开启。机制与 v1 相同，用于减少多路访问网段的空洞流量。</td>
+<td>彻底关闭。因为 v3
+需要收集每台主机的精准源过滤状态（INCLUDE/EXCLUDE），必须全员上报。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>IGMPv2 引入了 <code>0x17</code>
+「<strong>离开报文</strong>」，当最后一台收视主机离开时，会主动向
+<code>224.0.0.2</code>（所有路由器）发声。查询器收到后立即连续发射 2 次
+「<strong>特定组查询</strong>」，若 2
+秒内没人应答，直接剪枝。这完成了从“百秒级”到“秒级”收敛的跨越。</li>
+<li><strong>报告抑制机制的取消与接口状态重构（v2 ➔ v3）</strong>：
+IGMPv1/v2 采用抑制机制，是为了防止网段内几百台 PC 同时发送 Report
+撑爆路由器。但代价是路由器只知道“这个网段有人看”，不知道“到底是谁在看”和“想看哪个源”。IGMPv3
+为了支持 SSM，必须让路由器掌控每个主机的 <code>(S, G)</code>
+绑定关系，因此取消了抑制机制。主机的 Report
+报文不再针对单一组，而是打包成 「<strong>组记录（Group
+Record）</strong>」，在一个报文中塞入多个组以及对应的
+<code>INCLUDE</code>（仅接收指定源）或
+<code>EXCLUDE</code>（拒绝指定源）的源列表</li>
+<li><strong>向下兼容性底层死锁逻辑</strong>：
+组播接口的运行版本由<strong>网段内版本最低的设备</strong>决定。如果接口配置了
+IGMPv3，但网段内哪怕只有一台老旧的 PC 仅支持
+IGMPv2，整个接口的运行状态将强制<strong>降级切换回
+IGMPv2</strong>。此时，该接口将自动丧失 SSM 特定源过滤能力，所有 v3
+的特性将无法在该网段内生效</li>
+</ul>
+<h3 id="二层组播优化技术">二层组播优化技术</h3>
+<h5 id="igmp-snooping-机制">IGMP Snooping 机制</h5>
+<h4
+id="路由器端口routerport学习与老化">路由器端口(RouterPort)学习与老化</h4>
+<h4
+id="成员端口memberport学习与老化">成员端口（MemberPort)学习与老化</h4>
+<h2 id="pim">PIM</h2>
+<h3 id="通用基础">通用基础</h3>
+<h4 id="邻居建立hello报文">邻居建立&amp;Hello报文</h4>
+<ul>
+<li>通过组播(224.0.0.13)发送Hello报文</li>
+</ul>
+<h4 id="rpf-逆向路径转发检查">RPF-逆向路径转发检查</h4>
+<ul>
+<li><p>工作原理(防环核心)</p></li>
+<li><p>选路优先级(单播路由vs静态组播路由)</p></li>
+</ul>
+<h5 id="优先级">优先级：</h5>
+<ol type="1">
+<li>掩码最长</li>
+<li>路单播路由协议的全局优先级（Preference / AD 值）</li>
+<li>组播静态路由&gt;MBGP路由&gt;单播路由</li>
+</ol>
+<h3 id="pim-smasm">PIM-SM/ASM</h3>
+<blockquote>
+<ul>
+<li>接收者只知节目不知演员</li>
+<li>依赖RP来牵线搭桥，可能存在以下问题：
+<ul>
+<li>RP单点故障</li>
+<li>次优路径</li>
+<li>控制面涉及 <code>(*, G)</code> 向 <code>(S, G)</code>
+的复杂树切换</li>
+</ul></li>
+</ul>
+<p>ASM→Any Source Multicast</p>
+</blockquote>
+<h4 id="rp">RP</h4>
+<ul>
+<li><p>静态和动态(BSR/Auto-RP)</p></li>
+<li><p>一个RP可以同时服务于多个组播组，但一个组播组只能唯一对应一个RP
+台设备可以同时充当C-RP和C-BSR。（C：Candidate，候选人）</p></li>
+</ul>
+<h4 id="接收端构建rpt树流程">接收端构建RPT树流程</h4>
+<ul>
+<li><p>源端注册流程（SourceRegistration）</p></li>
+<li><p>构建RPT树</p></li>
+<li><p>RPT切换到SPT(Switchover）触发机制</p></li>
+</ul>
+<h3 id="pim-ssmssm">PIM-SSM/SSM</h3>
+<blockquote>
+<ul>
+<li><p>接收者精准知道 <code>(S, G)</code>（如现代
+IPTV/数据中心复制）</p></li>
+<li><p>无需RP、RPT、注册组播源；可以直接组播源和组成员建立SPT</p></li>
+<li><p>周期性Join报文→组播分发树一直存在，不会因为没有组播流量而消失</p></li>
+<li><p>SSM提前定义组播的源地址→可以在成员端DR上基于组播源地址直接反向建立SPT</p></li>
+<li><p>控制面只有 <code>(S, G)</code> 表项，天然防范组播 DOS
+攻击</p></li>
+</ul>
+</blockquote>
+<h2 id="控制面数据面动态时序联动">控制面&amp;数据面→动态时序联动</h2>
+<h3 id="pim-ssm">PIM-SSM</h3>
+<ul>
+<li><p>Host 发起阶段：接收者 PC 产生收视需求，向二层网络发出 「IGMPv3
+Report」 报文，内容明确携带 Source: 1.1.1.1, Group: 232.1.1.1。</p></li>
+<li><p>LHR 拦截与 RPF 检查阶段：</p>
+<ul>
+<li>LHR 收到 Report 报文，在本地生成 (1.1.1.1, 232.1.1.1) 表项。</li>
+<li>LHR 提取源地址
+1.1.1.1，查找本地路由表（单播路由/静态组播路由/MBGP），确定 RPF
+上游接口。</li>
+</ul></li>
+<li><p>骨干网逆向建树阶段：LHR 从 RPF 接口向源的方向发送 「PIM Join」
+报文。沿途路由器逐跳重复 RPF 检查并向源头转发 Join，逆向构建起一条直至
+FHR 的 「SPT（源树）」。</p></li>
+<li><p>数据面顺向转发阶段：组播源 Source
+开始发送组播流量。流量顺着刚才建立好的 SPT
+树状路径，无环、最优地顺向直达接收者。</p></li>
+<li><p>共享网段去冗余（Assert机制）：若多台路由器在同一个以太网网段同时向下游转发相同的组播流，触发
+「PIM Assert（断言）」 机制，通过较量单播路由开销与接口
+IP，强行锁定唯一转发者。</p></li>
+</ul>
+<h2 id="常见故障">常见故障</h2>
+<h4 id="二层组播流量不通">⚠️二层组播流量不通</h4>
+<p>现象：未配置IGMPSnooping时，组播转发正常，配置了IGMPSnooping功能后，发现用户无法收到组播数据</p>
+<ul>
+<li>1.检查是否配置的IGMP Snooping Version较低。 如果配置的IGMP Snooping
+Version比用户主机的IGMP版本低，设备在收到IGMPReport报文后，只会
+向路由器端口转发，不会生成成员端口和转发表项。</li>
+</ul>
+<p>踩坑点 1：地址范围与服务模型不匹配**</p>
+<ul>
+<li>现象：配置了 PIM-SSM，但主机申请的地址在 <code>224.x.x.x</code> 或
+<code>239.x.x.x</code> 范围内。</li>
+<li>根因：SSM 默认组范围为
+<code>232.0.0.0/8</code>，非此范围的地址默认不触发 SSM 机制，导致 LHR
+无法直接建立 <code>(S, G)</code> 表项。</li>
+</ul>
+<p><strong>⚠️ 踩坑点 2：二层与三层机制断节</strong></p>
+<ul>
+<li>现象：控制面全通，但接收者收不到任何组播流。</li>
+<li>根因：交换机开启了 IGMP Snooping
+但未配置「<strong>查询器（Querier）</strong>」，或者 LHR 接口未配置
+<code>ip pim</code> 导致交换机无法学习到“路由器端口（Router
+Port）”，组播流量在二层被直接丢弃。</li>
+</ul>
+<p><strong>⚠️ 踩坑点 3：单播非对称路由引发的 RPF 死锁</strong></p>
+<ul>
+<li>现象：单播物理链路全通，组播路由表项存在但
+<code>Incoming interface: Null</code>。</li>
+<li>根因：单播路由表中去往组播源的接口，与组播报文实际流入的物理接口不一致（非对称路径），导致
+RPF 检查失败。</li>
+<li>优化方案：必须强制使用「<strong>静态组播路由（Multicast Static
+Route）</strong>」或「<strong>MBGP</strong>」强行纠正组播的 RPF
+选路。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://taypink.github.io">taypink</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://taypink.github.io/posts/561f759a.html">https://taypink.github.io/posts/561f759a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://taypink.github.io" target="_blank">taypink</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">taypink</div><div class="author-info__description">懒得写描述</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/taypink" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="toc-text">基础架构与底层原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2-%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-text">组播控制与数据平面 流程图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E5%9C%B0%E5%9D%80%E4%BD%93%E7%B3%BB"><span class="toc-text">组播地址体系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86"><span class="toc-text">地址划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mac%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84%E5%86%B2%E7%AA%81"><span class="toc-text">MAC地址映射&amp;冲突</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#igmp"><span class="toc-text">IGMP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#igmp%E5%8A%9F%E8%83%BD%E4%B8%8E%E8%BF%90%E8%A1%8C%E8%BE%B9%E7%95%8C"><span class="toc-text">IGMP功能与运行边界</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#igmp%E7%9A%84%E5%B7%A5%E4%BD%9C%E4%BD%8D%E7%BD%AE%E4%B8%8E%E6%8A%A5%E6%96%87%E5%B0%81%E8%A3%85ip%E5%8D%8F%E8%AE%AE%E5%8F%B72"><span class="toc-text">IGMP的工作位置与报文封装（IP协议号2)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E8%B7%AF%E7%94%B1%E8%A1%A8%E4%B8%8Eigmp%E7%BB%84%E8%A1%A8%E9%A1%B9%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">组播路由表与IGMP组表项的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#igmp%E7%89%88%E6%9C%AC%E6%BC%94%E8%BF%9B%E4%B8%8E%E6%9C%BA%E5%88%B6%E5%AF%B9%E6%AF%94"><span class="toc-text">IGMP版本演进与机制对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%B1%82%E7%BB%84%E6%92%AD%E4%BC%98%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="toc-text">二层组播优化技术</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#igmp-snooping-%E6%9C%BA%E5%88%B6"><span class="toc-text">IGMP Snooping 机制</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%AB%AF%E5%8F%A3routerport%E5%AD%A6%E4%B9%A0%E4%B8%8E%E8%80%81%E5%8C%96"><span class="toc-text">路由器端口(RouterPort)学习与老化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%88%90%E5%91%98%E7%AB%AF%E5%8F%A3memberport%E5%AD%A6%E4%B9%A0%E4%B8%8E%E8%80%81%E5%8C%96"><span class="toc-text">成员端口（MemberPort)学习与老化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pim"><span class="toc-text">PIM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%9F%BA%E7%A1%80"><span class="toc-text">通用基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%82%BB%E5%B1%85%E5%BB%BA%E7%AB%8Bhello%E6%8A%A5%E6%96%87"><span class="toc-text">邻居建立&amp;Hello报文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rpf-%E9%80%86%E5%90%91%E8%B7%AF%E5%BE%84%E8%BD%AC%E5%8F%91%E6%A3%80%E6%9F%A5"><span class="toc-text">RPF-逆向路径转发检查</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">优先级：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pim-smasm"><span class="toc-text">PIM-SM&#x2F;ASM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rp"><span class="toc-text">RP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E7%AB%AF%E6%9E%84%E5%BB%BArpt%E6%A0%91%E6%B5%81%E7%A8%8B"><span class="toc-text">接收端构建RPT树流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pim-ssmssm"><span class="toc-text">PIM-SSM&#x2F;SSM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%95%B0%E6%8D%AE%E9%9D%A2%E5%8A%A8%E6%80%81%E6%97%B6%E5%BA%8F%E8%81%94%E5%8A%A8"><span class="toc-text">控制面&amp;数据面→动态时序联动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pim-ssm"><span class="toc-text">PIM-SSM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%95%85%E9%9A%9C"><span class="toc-text">常见故障</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%B1%82%E7%BB%84%E6%92%AD%E6%B5%81%E9%87%8F%E4%B8%8D%E9%80%9A"><span class="toc-text">⚠️二层组播流量不通</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2026 By taypink</div><div class="footer_custom_text">别翻了，到底啦！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
   if (typeof pangu === 'object') pangu.autoSpacingPage()
   else {
     getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
