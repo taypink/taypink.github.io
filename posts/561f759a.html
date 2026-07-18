@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Multicast | taypink</title><meta name="author" content="taypink"><meta name="copyright" content="taypink"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="地址与映射 协议功能区分 IGMP 负责主机成员的接入，而 PIM、MSDP、MBGP 解决路由器间寻路    协议 范围&amp;作用概述 详解     IGMP 主机与直连三层路由器 LHR 之间主机点播，解决要不要 负责主机成员的接入   PIM AS内解决怎么走 PIM负责AS内逆向构建RPT&#x2F;SPT，决定流量在AS内的流向   MSDP组播源发现协议 跨 AS 域间跨域拉线搭桥(TCP建">
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Multicast | taypink</title><meta name="author" content="taypink"><meta name="copyright" content="taypink"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="地址与映射 协议功能区分 IGMP 负责主机成员的接入，而 PIM、MSDP、MBGP 解决路由器间寻路         协议 范围&amp;作用概述 详解     IGMP 主机与直连三层路由器 LHR 之间主机点播，解决要不要 负责主机成员的接入   PIM AS内解决怎么走 PIM负责AS内逆向构建RPT&#x2F;SPT，决定流量在AS内的流向">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Multicast">
 <meta property="og:url" content="https://taypink.github.io/posts/561f759a.html">
 <meta property="og:site_name" content="taypink">
-<meta property="og:description" content="地址与映射 协议功能区分 IGMP 负责主机成员的接入，而 PIM、MSDP、MBGP 解决路由器间寻路    协议 范围&amp;作用概述 详解     IGMP 主机与直连三层路由器 LHR 之间主机点播，解决要不要 负责主机成员的接入   PIM AS内解决怎么走 PIM负责AS内逆向构建RPT&#x2F;SPT，决定流量在AS内的流向   MSDP组播源发现协议 跨 AS 域间跨域拉线搭桥(TCP建">
+<meta property="og:description" content="地址与映射 协议功能区分 IGMP 负责主机成员的接入，而 PIM、MSDP、MBGP 解决路由器间寻路         协议 范围&amp;作用概述 详解     IGMP 主机与直连三层路由器 LHR 之间主机点播，解决要不要 负责主机成员的接入   PIM AS内解决怎么走 PIM负责AS内逆向构建RPT&#x2F;SPT，决定流量在AS内的流向">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/98171449?v=4">
 <meta property="article:published_time" content="2026-06-28T17:12:18.000Z">
@@ -161,6 +161,11 @@
 <h3 id="协议功能区分">协议功能区分</h3>
 <p>IGMP 负责主机成员的接入，而 PIM、MSDP、MBGP 解决路由器间寻路</p>
 <table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 41%" />
+<col style="width: 41%" />
+</colgroup>
 <thead>
 <tr>
 <th>协议</th>
@@ -181,13 +186,16 @@
 </tr>
 <tr>
 <td>MSDP<br />组播源发现协议</td>
-<td>跨 AS 域间<br />跨域拉线搭桥<br />(TCP建邻居，宣告本地组播源给对端）</td>
-<td>因为 PIM 无法跨越 AS 传递源信息， RP 无法感知对方，<br />MSDP 通过 TCP 建立邻居，把 本地AS的组播源宣告给 对端AS</td>
+<td>跨 AS
+域间<br />跨域拉线搭桥<br />(TCP建邻居，宣告本地组播源给对端）</td>
+<td>因为 PIM 无法跨越 AS 传递源信息， RP 无法感知对方，<br />MSDP 通过
+TCP 建立邻居，把 本地AS的组播源宣告给 对端AS</td>
 </tr>
 <tr>
 <td>MBGP</td>
 <td>跨 AS 域间<br />在底层开辟组播专属绿色通道（提供 RPF 凭证）</td>
-<td>为跨域的组播流量提供RPF所需的路由凭证<br />防止跨越不同运营商/AS 时发生二三层环路或逆向检查失败导致丢包</td>
+<td>为跨域的组播流量提供RPF所需的路由凭证<br />防止跨越不同运营商/AS
+时发生二三层环路或逆向检查失败导致丢包</td>
 </tr>
 </tbody>
 </table>
@@ -200,6 +208,12 @@
 </blockquote>
 <h4 id="地址划分">地址划分</h4>
 <table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 41%" />
+</colgroup>
 <thead>
 <tr>
 <th>Range</th>
@@ -216,80 +230,98 @@
 <td>IANA 预留(默认 TTL=1，不会被转发出本地网段，不跨路由器转发)。</td>
 </tr>
 <tr>
-<td>224.0.1.0~231.255.255.255<br />233.0.0.0~238.255.255.255</td>
+<td>224.0.1.0<sub>231.255.255.255<br />233.0.0.0</sub>238.255.255.255</td>
 <td></td>
 <td>公网ASM 地址</td>
-<td>全网范围内有效。属于「任意源组播」（ASM），仅关心组地址，需依赖 RP（汇聚点）构建转发树。</td>
+<td>全网范围内有效。属于「任意源组播」（ASM），仅关心组地址，需依赖
+RP（汇聚点）构建转发树。</td>
 </tr>
 <tr>
 <td>232.0.0.0 ~ 232.255.255.255</td>
 <td>232.0.0.0/8</td>
 <td>公网SSM 地址</td>
-<td>全网范围内有效。默认用于「特定源组播」（SSM），主机加入时必须同时指定源和组 (S, G)，无需建立 RP。</td>
+<td>全网范围内有效。默认用于「特定源组播」（SSM），主机加入时必须同时指定源和组
+(S, G)，无需建立 RP。</td>
 </tr>
 <tr>
 <td>239.0.0.0 ~ 239.255.255.255</td>
 <td>239.0.0.0/8</td>
 <td>本地管理组地址</td>
-<td>仅在本地管理域内有效。边界路由器默认隔离该流量。（类似于单播的私网 IP，不同私网可重叠使用）。</td>
+<td>仅在本地管理域内有效。边界路由器默认隔离该流量。（类似于单播的私网
+IP，不同私网可重叠使用）。</td>
 </tr>
 </tbody>
 </table>
-<h4 id="MAC地址映射-冲突">MAC地址映射&amp;冲突</h4>
+<h4 id="mac地址映射冲突">MAC地址映射&amp;冲突</h4>
 <blockquote>
 <p>32位只剩下28位可以自由组合，但是只买了23位给IP地址使用→<strong>有32个不同的IP地址对应一个MAC地址</strong></p>
 <p>(28位IP地址丢失头部5位)</p>
 </blockquote>
-<p><strong>组播 MAC 地址固定前缀：</strong> 前 24 位（高 24 位）固定为 OUI <code>01-00-5e</code>，第 25 位被强制固定为 0</p>
+<p><strong>组播 MAC 地址固定前缀：</strong> 前 24 位（高 24 位）固定为
+OUI <code>01-00-5e</code>，第 25 位被强制固定为 0</p>
 <h5 id="二进制解析">二进制解析</h5>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">IPv4 组播地址总长 32 位，前四位固定位1110，只有28位可以分配，但是其中23位可用</span><br><span class="line"></span><br><span class="line">地址 1:       224      .      1       .    1      .   1</span><br><span class="line">           ┌───┴────┐     ┌───┴─────┐      │          │</span><br><span class="line">二进制:     1110 [0000  .  0] [0000001 . 00000001 . 00000001]</span><br><span class="line">            └──┘ └────┬─────┘ └──────────────┬──────────────┘</span><br><span class="line">           前4位   中间5位                低23位映射区</span><br><span class="line">          (固定)  (被丢弃)            (复制到MAC低23位)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">地址 2:       224      .     129      .    1     .    1</span><br><span class="line">           ┌───┴────┐     ┌───┴─────┐      │          │</span><br><span class="line">二进制:     1110 [0000  .  1] [0000001 . 00000001 . 00000001]</span><br><span class="line">            └──┘ └────┬─────┘ └──────────────┬──────────────┘</span><br><span class="line">           前4位   中间5位                低23位映射区</span><br><span class="line">          (固定)  (被丢弃)            (复制到MAC低23位)</span><br></pre></td></tr></table></figure>
-<h5 id="MAC冲突对应的IP计算">MAC冲突对应的IP计算</h5>
+<h5 id="mac冲突对应的ip计算">MAC冲突对应的IP计算</h5>
 <blockquote>
 <p>口诀：</p>
-<ol>
+<ol type="1">
 <li>后两段(第3、4字节)：直接照抄</li>
 <li>第一段(第1字节)：把224~239 共16个地址写出来</li>
 <li>第二段(第2字节)：看此处X数值大小，X&gt;=128,那么X-128；如果X&lt;128,那么X+128</li>
 </ol>
 <p>于是:16(第一段的变化)*2(第二段的变化)=32个同一MAC地址的IP</p>
 <p>例：找<code>239.200.10.20</code>的难兄难弟</p>
-<ol>
-<li>
-<p>后面两段地址照抄：x.x.10.20</p>
-</li>
-<li>
-<p>16个地址：(224~239).x.10.20</p>
-</li>
-<li>
-<p>因为$200 \ge 128$,所以另外一个是$200 - 128 = 72$，第二段为200或72<br>
-于是冲突的IP：</p>
-<p>$224.200.10.20 \longleftrightarrow 224.72.10.20$</p>
-<p>$225.200.10.20 \longleftrightarrow 225.72.10.20$</p>
+<ol type="1">
+<li><p>后面两段地址照抄：x.x.10.20</p></li>
+<li><p>16个地址：(224~239).x.10.20</p></li>
+<li><p>因为<span class="math inline">\(200 \ge
+128\)</span>,所以另外一个是<span class="math inline">\(200 - 128 =
+72\)</span>，第二段为200或72 于是冲突的IP：</p>
+<p><span class="math inline">\(224.200.10.20 \longleftrightarrow
+224.72.10.20\)</span></p>
+<p><span class="math inline">\(225.200.10.20 \longleftrightarrow
+225.72.10.20\)</span></p>
 <p>……</p>
-<p>$239.200.10.20 \longleftrightarrow 239.72.10.20$</p>
-</li>
+<p><span class="math inline">\(239.200.10.20 \longleftrightarrow
+239.72.10.20\)</span></p></li>
 </ol>
 </blockquote>
-<p>[思路梳理]：为什么口诀里第一段是 16 个、第二段是 $\pm 128$？</p>
-<p>已知IPv4 组播地址总长 32 位，前四位固定位1110，只有28位可以分配，但是其中23位可用<br>
+<p>[思路梳理]：为什么口诀里第一段是 16 个、第二段是 <span
+class="math inline">\(\pm 128\)</span>？</p>
+<p>已知IPv4 组播地址总长 32
+位，前四位固定位1110，只有28位可以分配，但是其中23位可用
 那么我们不难发现→前4位固定，中间5位丢弃了，4+4=8刚好为第一段IP地址，第二节IP地址刚好被截断了1位！</p>
 <ul>
-<li>第二段 $\pm 128$ 的秘密：第二段被截断了最高位（第 9 位）。这一位在十进制中代表 $2^7 = 128$。当这一位由 0 变 1 或由 1变 0 时，十进制数值刚好相差 128。</li>
-<li>第一段 16 个的秘密：第一段的后 4 位被丢弃了。4 位二进制可以有 $2^4 = 16$ 种组合（0000 ~ 1111）。加上前 4 位固定的 1110（即 224），其范围自然就是 $224 + 0$ 到 $224 + 15$，即 224 ~ 239。</li>
-<li>最终排列组合：第一段的 16 种变化 $\times$ 第二段的 2 种变化 = 32 个冲突 IP。</li>
+<li>第二段 <span class="math inline">\(\pm 128\)</span>
+的秘密：第二段被截断了最高位（第 9 位）。这一位在十进制中代表 <span
+class="math inline">\(2^7 = 128\)</span>。当这一位由 0 变 1 或由 1变 0
+时，十进制数值刚好相差 128。</li>
+<li>第一段 16 个的秘密：第一段的后 4 位被丢弃了。4 位二进制可以有 <span
+class="math inline">\(2^4 = 16\)</span> 种组合（0000 ~ 1111）。加上前 4
+位固定的 1110（即 224），其范围自然就是 <span class="math inline">\(224
++ 0\)</span> 到 <span class="math inline">\(224 + 15\)</span>，即 224 ~
+239。</li>
+<li>最终排列组合：第一段的 16 种变化 <span
+class="math inline">\(\times\)</span> 第二段的 2 种变化 = 32 个冲突
+IP。</li>
 </ul>
-<hr>
-<h2 id="IGMP与二层优化">IGMP与二层优化</h2>
-<h3 id="IGMP">IGMP</h3>
-<h4 id="工作位置（IP协议号2">工作位置（IP协议号2)</h4>
+<hr />
+<h2 id="igmp与二层优化">IGMP与二层优化</h2>
+<h3 id="igmp">IGMP</h3>
+<h4 id="工作位置ip协议号2">工作位置（IP协议号2)</h4>
 <blockquote>
 <p>运行在最后一公里的位置</p>
 </blockquote>
 <ul>
 <li>RFC 标准默认 125s(Cisco也是)，华为实现为 60s</li>
 </ul>
-<h4 id="组播路由表与IGMP组表项的区别">组播路由表与IGMP组表项的区别</h4>
+<h4 id="组播路由表与igmp组表项的区别">组播路由表与IGMP组表项的区别</h4>
 <table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 23%" />
+<col style="width: 63%" />
+</colgroup>
 <thead>
 <tr>
 <th></th>
@@ -306,7 +338,8 @@
 <tr>
 <td>要素</td>
 <td>接口、组播组、成员状态</td>
-<td>$(*，G)$/$(S，G)$<br />RPF接口(入接口)<br />OIL(出接口列表)</td>
+<td><span class="math inline">\((*，G)\)</span>/<span
+class="math inline">\((S，G)\)</span><br />RPF接口(入接口)<br />OIL(出接口列表)</td>
 </tr>
 <tr>
 <td>是否参与寻路</td>
@@ -318,10 +351,15 @@
 <h3 id="版本区别">版本区别</h3>
 <p><code>IGMPv1</code>：仅支持普遍组查询，成员「默默离开」，浪费带宽与收敛慢</p>
 <p><code>IGMPv2</code>：增加离开报文(Leave)与特定组查询，实现快速离组收敛；</p>
-<pre><code>			引入查询器选举机制。
-</code></pre>
+<pre><code>            引入查询器选举机制。</code></pre>
 <p><code>IGMPv3</code>：引入 SSM，支持指定源过滤(INCLUDE/EXCLUDE)</p>
 <table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
 <thead>
 <tr>
 <th><strong>对比维度</strong></th>
@@ -339,15 +377,19 @@
 </tr>
 <tr>
 <td>报文类型</td>
-<td>1.普遍组查询<br />(General Query)<br />2.成员报告<br />(Membership_Report)</td>
-<td>1. 普遍组查询 <br />2. 特定组查询 <br />3. 成员报告<br />4. 离开报文</td>
-<td>1. 查询报文（包含普遍/特定组/特定源查询） <br />2. 成员报告（包含多个组记录项）</td>
+<td>1.普遍组查询<br />(General
+Query)<br />2.成员报告<br />(Membership_Report)</td>
+<td>1. 普遍组查询 <br />2. 特定组查询 <br />3. 成员报告<br />4.
+离开报文</td>
+<td>1. 查询报文（包含普遍/特定组/特定源查询） <br />2.
+成员报告（包含多个组记录项）</td>
 </tr>
 <tr>
 <td>报文携带量</td>
 <td>单组单发。每个Report报文只能包含一个具体的组播组地址，无法一次性申报多个组播业务。</td>
 <td>单组单发。每个Report报文或Leave报文内部只能容纳一个具体的组播组地址。</td>
-<td>批量多发。单个Report报文允许打包封装多个组记录（Group Record），每个组记录内部可以携带多个源地址，实现一次性上报所有视听需求。</td>
+<td>批量多发。单个Report报文允许打包封装多个组记录（Group
+Record），每个组记录内部可以携带多个源地址，实现一次性上报所有视听需求。</td>
 </tr>
 <tr>
 <td>查询器选举</td>
@@ -357,9 +399,12 @@
 </tr>
 <tr>
 <td>离组收敛机制</td>
-<td>默默离开。主机离组不发报文，路由器依靠老化定时器（默认 130s）超时踢出成员。</td>
-<td>主动离开。主机发送临别报文，路由器触发特定组查询，收敛时间缩短至 2s 左右。</td>
-<td>状态变更触发。通过发送改变源组关系的 Report 报文告知，路由器触发特定源组查询。</td>
+<td>默默离开。主机离组不发报文，路由器依靠老化定时器（默认
+130s）超时踢出成员。</td>
+<td>主动离开。主机发送临别报文，路由器触发特定组查询，收敛时间缩短至 2s
+左右。</td>
+<td>状态变更触发。通过发送改变源组关系的 Report
+报文告知，路由器触发特定源组查询。</td>
 </tr>
 <tr>
 <td>最大响应时间</td>
@@ -369,59 +414,88 @@
 </tr>
 <tr>
 <td>报告抑制机制</td>
-<td>开启。同一网段内其他主机收到相同的 Report 后，会抑制自己的 Report 发送。</td>
+<td>开启。同一网段内其他主机收到相同的 Report 后，会抑制自己的 Report
+发送。</td>
 <td>开启。机制与 v1 相同，用于减少多路访问网段的空洞流量。</td>
-<td>彻底关闭。因为 v3 需要收集每台主机的精准源过滤状态（INCLUDE/EXCLUDE），必须全员上报。</td>
+<td>彻底关闭。因为 v3
+需要收集每台主机的精准源过滤状态（INCLUDE/EXCLUDE），必须全员上报。</td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li>IGMPv2 引入了离开报文 (<code>0x17</code>)，当最后一台收视主机离开时，会主动向 <code>224.0.0.2</code>（所有路由器）发声。查询器收到后立即连续发射 2 次 特定组查询，若 2 秒内没人应答，直接剪枝。这完成了从“百秒级”到“秒级”收敛的跨越。</li>
+<li>IGMPv2 引入了离开报文
+(<code>0x17</code>)，当最后一台收视主机离开时，会主动向
+<code>224.0.0.2</code>（所有路由器）发声。查询器收到后立即连续发射 2 次
+特定组查询，若 2
+秒内没人应答，直接剪枝。这完成了从“百秒级”到“秒级”收敛的跨越。</li>
 <li>报告抑制机制的取消与接口状态重构（v2 ➔ v3）：
 <ul>
-<li>IGMPv1/v2 采用抑制机制，是为了防止网段内几百台 PC 同时发送 Report 撑爆路由器。但代价是路由器只知道“这个网段有人看”，不知道“到底是谁在看”和“想看哪个源”。</li>
-<li>IGMPv3 为了支持 SSM，必须让路由器掌控每个主机的 <code>(S, G)</code> 绑定关系，因此取消了抑制机制。主机的 Report 报文不再针对单一组，而是打包成组记录(Group Record)，在一个报文中塞入多个组以及对应的 <code>INCLUDE</code>（仅接收指定源）或 <code>EXCLUDE</code>（拒绝指定源）的源列表</li>
-</ul>
-</li>
-<li>向下兼容性底层死锁逻辑： 由网段内版本最低的设备决定。<br>
-如果接口配置了 IGMPv3，但有一台设备仅支持v2，整个接口的运行状态将强制<strong>降级切换回 IGMPv2</strong>。此时，该接口将自动丧失 SSM 特定源过滤能力，所有 v3 的特性将无法在该网段内生效</li>
+<li>IGMPv1/v2 采用抑制机制，是为了防止网段内几百台 PC 同时发送 Report
+撑爆路由器。但代价是路由器只知道“这个网段有人看”，不知道“到底是谁在看”和“想看哪个源”。</li>
+<li>IGMPv3 为了支持 SSM，必须让路由器掌控每个主机的 <code>(S, G)</code>
+绑定关系，因此取消了抑制机制。主机的 Report
+报文不再针对单一组，而是打包成组记录(Group
+Record)，在一个报文中塞入多个组以及对应的
+<code>INCLUDE</code>（仅接收指定源）或
+<code>EXCLUDE</code>（拒绝指定源）的源列表</li>
+</ul></li>
+<li>向下兼容性底层死锁逻辑： 由网段内版本最低的设备决定。 如果接口配置了
+IGMPv3，但有一台设备仅支持v2，整个接口的运行状态将强制<strong>降级切换回
+IGMPv2</strong>。此时，该接口将自动丧失 SSM 特定源过滤能力，所有 v3
+的特性将无法在该网段内生效</li>
 </ul>
 <h3 id="二层组播优化技术">二层组播优化技术</h3>
-<h4 id="IGMP-Snooping-机制">IGMP Snooping 机制</h4>
-<p>配置该技术后，交换机可以侦听三层路由器与主机之间交互的 IGMP 报文，在二层建立精准的组播 MAC 转发表，从而将组播流量由纯粹的“二层广播泛洪”优化为“二层精准单播/组发”。→控制组播数据报文转发，抑制组播数据在二层网络中扩散</p>
-<h5 id="IGMP-Snooping-Proxy">IGMP Snooping Proxy</h5>
-<p>在IGMPSnooping的基础上使交换机代替上游三层路由器，向下游主机发送IGMP Query报文、代替下游主机向上游设备发送IGMP Report和Leave报文，→节约上游设备和本设备之间的带宽。</p>
+<h4 id="igmp-snooping-机制">IGMP Snooping 机制</h4>
+<p>配置该技术后，交换机可以侦听三层路由器与主机之间交互的 IGMP
+报文，在二层建立精准的组播 MAC
+转发表，从而将组播流量由纯粹的“二层广播泛洪”优化为“二层精准单播/组发”。→控制组播数据报文转发，抑制组播数据在二层网络中扩散</p>
+<h5 id="igmp-snooping-proxy">IGMP Snooping Proxy</h5>
+<p>在IGMPSnooping的基础上使交换机代替上游三层路由器，向下游主机发送IGMP
+Query报文、代替下游主机向上游设备发送IGMP
+Report和Leave报文，→节约上游设备和本设备之间的带宽。</p>
 <p>报文处理归纳为“一留一丢”：</p>
-<ol>
+<ol type="1">
 <li><strong>对于基础的“加入报告”和“普遍查询”报文</strong>，代理设备会选择处理或正常转发，用以维持和刷新基本的组播成员关系。</li>
 <li><strong>对于冗余的“特定组”和“特定源组”查询报文</strong>，它会选择直接丢弃以阻断其流向用户网段，从而达成精简报文数量、优化用户侧带宽的核心目的。</li>
 </ol>
-<h6 id="RP-路由器端口-Router-Port">RP-路由器端口(Router Port)</h6>
+<h6 id="rp-路由器端口router-port">RP-路由器端口(Router Port)</h6>
 <ul>
-<li>学习方式：通过动态接收 IGMP Query 普遍查询报文或 PIM Hello 报文自动生成</li>
+<li>学习方式：通过动态接收 IGMP Query 普遍查询报文或 PIM Hello
+报文自动生成</li>
 <li>老化机制：默认180/185s，如果在两个查询周期内未收到心跳，则直接老化删除该端口属性</li>
 </ul>
-<h6 id="MP-成员端口（Member-Port-学习与老化">MP-成员端口（Member Port)学习与老化</h6>
+<h6 id="mp-成员端口member-port学习与老化">MP-成员端口（Member
+Port)学习与老化</h6>
 <ul>
-<li>学习方式：交换机通过监听下游主机回应的 IGMP 成员报告报文（Report）来自动记录</li>
-<li>老化机制：默认 260s(2 倍的 IGMP 查询间隔 + 最大响应时间，$125\text{s} \times 2 + 10\text{s} = 260\text{s}$)华为→130s<br>
-若收到主机的 IGMP Leave 报文，则触发特定组查询，若 2s 内无响应则立即提前老化</li>
+<li>学习方式：交换机通过监听下游主机回应的 IGMP
+成员报告报文（Report）来自动记录</li>
+<li>老化机制：默认 260s(2 倍的 IGMP 查询间隔 + 最大响应时间，<span
+class="math inline">\(125\text{s} \times 2 + 10\text{s} =
+260\text{s}\)</span>)华为→130s 若收到主机的 IGMP Leave
+报文，则触发特定组查询，若 2s 内无响应则立即提前老化</li>
 </ul>
-<h4 id="IGMP-Proxy">IGMP Proxy</h4>
+<h4 id="igmp-proxy">IGMP Proxy</h4>
 <ul>
-<li>现网中可能存在一台IGMP查询器需要管理大量组成员的情况，大量成员主机频繁加入/离开组播组时，会产<br>
+<li>现网中可能存在一台IGMP查询器需要管理大量组成员的情况，大量成员主机频繁加入/离开组播组时，会产
 生大量的IGMP成员关系报告/离开报文，从而给IGMP查询器带来较大的处理压力。</li>
-<li>通过IGMP Proxy功能可减少IGMP查询器接收IGMP成员关系报告/离开报文的数量，减轻IGMP查询器压力。</li>
+<li>通过IGMP
+Proxy功能可减少IGMP查询器接收IGMP成员关系报告/离开报文的数量，减轻IGMP查询器压力。</li>
 <li>IGMP Proxy通常被部署在IGMP查询器和成员主机之间的三层设备上。</li>
 <li></li>
 </ul>
-<hr>
-<h2 id="PIM">PIM</h2>
+<hr />
+<h2 id="pim">PIM</h2>
 <blockquote>
-<p>运行在L3 层，没有TCP/UDP 端口，只有IP和协议号；无须维护四层状态机、重传机制</p>
+<p>运行在L3 层，没有TCP/UDP
+端口，只有IP和协议号；无须维护四层状态机、重传机制</p>
 </blockquote>
 <h3 id="协议报文列表">协议报文列表</h3>
 <table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 38%" />
+<col style="width: 53%" />
+</colgroup>
 <thead>
 <tr>
 <th></th>
@@ -433,12 +507,14 @@
 <tr>
 <td>通用</td>
 <td>Hello</td>
-<td>维持邻居、邻居发现、协议参数维护(Holdtime、DR Priority)<br />默认30s通过(224.0.0.13所有 PIM路由器地址)周期性发送</td>
+<td>维持邻居、邻居发现、协议参数维护(Holdtime、DR
+Priority)<br />默认30s通过(224.0.0.13所有 PIM路由器地址)周期性发送</td>
 </tr>
 <tr>
 <td>通用</td>
 <td>Assert</td>
-<td>网段去冗余（断言机制）<br />多路访问网段的去冗余机制；当多台路由器同时下发相同组播流时，通过比较单播路由开销与接口 IP，锁定唯一转发者，防止重复流量塞满网段。</td>
+<td>网段去冗余（断言机制）<br />多路访问网段的去冗余机制；当多台路由器同时下发相同组播流时，通过比较单播路由开销与接口
+IP，锁定唯一转发者，防止重复流量塞满网段。</td>
 </tr>
 <tr>
 <td></td>
@@ -448,17 +524,22 @@
 <tr>
 <td>SM</td>
 <td>Register/Register-Stop</td>
-<td>Register：FHR 发现新组播源后，将组播数据封装在单播注册报文中发往 RP；<br />Register-Stop：RP 建立局部 SPT 后，通知 FHR 停止单播封装，切换为原生组播转发。</td>
+<td>Register：FHR 发现新组播源后，将组播数据封装在单播注册报文中发往
+RP；<br />Register-Stop：RP 建立局部 SPT 后，通知 FHR
+停止单播封装，切换为原生组播转发。</td>
 </tr>
 <tr>
 <td>SM</td>
 <td>Join/Prune</td>
-<td>Join：逆向构建RPT/SPT(向源或 RP 方向逆向构建分发树RPT/SPT)<br />Prune：修剪SPT（下游无活跃成员时，向上游申请裁剪分发树分支，属于控制面控流）</td>
+<td>Join：逆向构建RPT/SPT(向源或 RP
+方向逆向构建分发树RPT/SPT)<br />Prune：修剪SPT（下游无活跃成员时，向上游申请裁剪分发树分支，属于控制面控流）</td>
 </tr>
 <tr>
 <td>SM</td>
 <td>Bootstrap / Candidate-RP</td>
-<td>Bootstrap(自举)：由 BSR 周期性向全网泛洪，通告候选 RP 集（C-RP-Set）信息；<br />Candidate-RP(候选RP通告)：由 C-RP 单播发送给 BSR，宣告自己的 IP 地址及服务的组播组范围。</td>
+<td>Bootstrap(自举)：由 BSR 周期性向全网泛洪，通告候选 RP
+集（C-RP-Set）信息；<br />Candidate-RP(候选RP通告)：由 C-RP 单播发送给
+BSR，宣告自己的 IP 地址及服务的组播组范围。</td>
 </tr>
 <tr>
 <td></td>
@@ -482,36 +563,38 @@
 </tr>
 </tbody>
 </table>
-<h3 id="RP-RPF">RP&amp;RPF</h3>
-<h4 id="RP→Rendezvous-Point">RP→Rendezvous Point</h4>
+<h3 id="rprpf">RP&amp;RPF</h3>
+<h4 id="rprendezvous-point">RP→Rendezvous Point</h4>
 <blockquote>
 <ul>
 <li>1个RP可以为多个Group服务,但1个Group只能对应1个RP。</li>
 <li>适用协议范围：PIM-SM/ASM；</li>
-<li>组播源的流量(来自 FHR)需要通过单播注册寻找 RP，而接收者(来自 LHR)则通过向 RP 发送 Join 报文来构建共享树（RPT）</li>
+<li>组播源的流量(来自 FHR)需要通过单播注册寻找 RP，而接收者(来自
+LHR)则通过向 RP 发送 Join 报文来构建共享树（RPT）</li>
 <li>PIM-SM RPT是以RP为根，以存在组成员关系的PIM路由器为叶子</li>
 </ul>
 </blockquote>
-<h4 id="RPF-逆向路径转发检查">RPF-逆向路径转发检查</h4>
-<h5 id="工作原理-防环核心">工作原理(防环核心)</h5>
+<h4 id="rpf-逆向路径转发检查">RPF-逆向路径转发检查</h4>
+<h5 id="工作原理防环核心">工作原理(防环核心)</h5>
 <p>思路：这个报文是从哪里来的，我该不该收”（来源）</p>
-<ol>
+<ol type="1">
 <li>检查源IP：当收到一个组播报文时，路由器会查看其 源IP</li>
-<li>寻找出接口：路由器检查自己本地的单播路由表， 寻找“如果我要发报文给这个源 IP，我的出接口是哪个？”</li>
-<li>对齐路径：收到组播报文的接口是否为单播路由表里的出接口(RPF)，<br>
+<li>寻找出接口：路由器检查自己本地的单播路由表，
+寻找“如果我要发报文给这个源 IP，我的出接口是哪个？”</li>
+<li>对齐路径：收到组播报文的接口是否为单播路由表里的出接口(RPF)，
 是就放行转发，不是就直接丢弃(视为环路)</li>
 </ol>
-<h5 id="选路优先级：">选路优先级：</h5>
-<ol>
-<li>
-<p>掩码最长</p>
-</li>
-<li>
-<p>路单播路由协议的全局优先级（Preference / AD 值）</p>
-</li>
-<li>
-<p>跨表最长前缀匹配优先。若掩码相同，则按“组播静态&gt;MBGP&gt;单播”的优先级</p>
+<h5 id="选路优先级">选路优先级：</h5>
+<ol type="1">
+<li><p>掩码最长</p></li>
+<li><p>路单播路由协议的全局优先级（Preference / AD 值）</p></li>
+<li><p>跨表最长前缀匹配优先。若掩码相同，则按“组播静态&gt;MBGP&gt;单播”的优先级</p>
 <table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 42%" />
+<col style="width: 28%" />
+</colgroup>
 <thead>
 <tr>
 <th>路由类型</th>
@@ -536,10 +619,9 @@
 <td>默认兜底（看谁的协议优先级高就用谁）</td>
 </tr>
 </tbody>
-</table>
-</li>
+</table></li>
 </ol>
-<h3 id="SM-ASM">SM/ASM</h3>
+<h3 id="smasm">SM/ASM</h3>
 <blockquote>
 <ul>
 <li>接收者只知节目不知演员</li>
@@ -547,19 +629,24 @@
 <ul>
 <li>RP单点故障</li>
 <li>次优路径</li>
-<li>控制面涉及$(*,G)$向 $(S,G)$的复杂树切换</li>
-</ul>
-</li>
+<li>控制面涉及<span class="math inline">\((*,G)\)</span>向 <span
+class="math inline">\((S,G)\)</span>的复杂树切换</li>
+</ul></li>
 </ul>
 <p>ASM→Any Source Multicast</p>
 </blockquote>
-<h4 id="RP">RP</h4>
+<h4 id="rp">RP</h4>
 <ul>
 <li>静态和动态(BSR/Auto-RP)</li>
-<li>一个RP可以同时服务于多个组播组，但一个组播组只能唯一对应一个RP<br>
+<li>一个RP可以同时服务于多个组播组，但一个组播组只能唯一对应一个RP
 1台设备可以同时充当C-RP和C-BSR。（C：Candidate，候选人）</li>
 </ul>
 <table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 46%" />
+<col style="width: 46%" />
+</colgroup>
 <thead>
 <tr>
 <th>特性</th>
@@ -580,8 +667,10 @@
 </tr>
 <tr>
 <td>路由依赖</td>
-<td>属于常规组播数据，需要配置 Auto-RP Listener 或稀疏-密集模式才能泛洪</td>
-<td>属于 PIM 协议报文，接收路由器依然会对其进行 RPF 检查，在网络内逐跳泛洪</td>
+<td>属于常规组播数据，需要配置 Auto-RP Listener
+或稀疏-密集模式才能泛洪</td>
+<td>属于 PIM 协议报文，接收路由器依然会对其进行 RPF
+检查，在网络内逐跳泛洪</td>
 </tr>
 <tr>
 <td>适用场景</td>
@@ -590,84 +679,98 @@
 </tr>
 </tbody>
 </table>
-<h4 id="接收端构建RPT树流程">接收端构建RPT树流程</h4>
+<h4 id="接收端构建rpt树流程">接收端构建RPT树流程</h4>
 <blockquote>
-<p>控制面： $(*, G)$ 树 $\rightarrow$ $(S, G)$ 树的两次逆向构建。RP 仅在前期充当流量中介，后期会被全网路由器“边缘化”。</p>
+<p>控制面： <span class="math inline">\((*, G)\)</span> 树 <span
+class="math inline">\(\rightarrow\)</span> <span
+class="math inline">\((S, G)\)</span> 树的两次逆向构建。RP
+仅在前期充当流量中介，后期会被全网路由器“边缘化”。</p>
 <p>数据面：FHR到RP的单播隧道封装➔单播与组播混合转发➔全线原生组播最优路径转发</p>
 </blockquote>
-<h5 id="1-RPT构建-共享树-→接收者入组">1.RPT构建(共享树)→接收者入组</h5>
+<h5 id="rpt构建共享树接收者入组">1.RPT构建(共享树)→接收者入组</h5>
 <ul>
-<li>
-<p>主机向二层网络发送 IGMPv2 Report 报文，申请加入组G(此时主机并不知道源S)</p>
-</li>
-<li>
-<p>LHR拦截了主机的Report报文，本地生成$(*, G)$ 表项；</p>
-<p>LHR查找去往RP的单播路由，从对应的RPF接口向RP的方向逆向发送 PIM Join 报文</p>
-</li>
-<li>
-<p>沿途的 Transit 路由器逐跳重复 RPF 检查，并在本地生成$(*, G)$ 表项，向源头转发 Join。<br>
-最终报文到达RP，逆向构建起一条以RP 为根、LHR为叶的RPT(共享树)</p>
-</li>
+<li><p>主机向二层网络发送 IGMPv2 Report
+报文，申请加入组G(此时主机并不知道源S)</p></li>
+<li><p>LHR拦截了主机的Report报文，本地生成<span
+class="math inline">\((*, G)\)</span> 表项；</p>
+<p>LHR查找去往RP的单播路由，从对应的RPF接口向RP的方向逆向发送 PIM Join
+报文</p></li>
+<li><p>沿途的 Transit 路由器逐跳重复 RPF 检查，并在本地生成<span
+class="math inline">\((*, G)\)</span> 表项，向源头转发 Join。
+最终报文到达RP，逆向构建起一条以RP 为根、LHR为叶的RPT(共享树)</p></li>
 </ul>
-<h5 id="2-源端注册→组播源亮身份">2.源端注册→组播源亮身份</h5>
+<h5 id="源端注册组播源亮身份">2.源端注册→组播源亮身份</h5>
 <ul>
 <li>组播源Source发送组播数据，FHR接收到流量</li>
-<li>FHR无条件将组播数据包封装进<strong>单播</strong>PIM Register报文发送给 RP，以此来通知 RP 组播源已激活。</li>
+<li>FHR无条件将组播数据包封装进<strong>单播</strong>PIM
+Register报文发送给 RP，以此来通知 RP 组播源已激活。</li>
 <li>RP 收到单播注册报文后，同时启动控制面和数据面的操作：
 <ul>
 <li>数据面：剥离单播外壳，提取原生组播流，顺着第一阶段建立好的RPT共享树向下游的LHR泛洪；</li>
-<li>控制面：从报文中提取源地址S，主动向Source方向发送 $(S, G)$ Join报文，在RP和FHR间逆向构建Source-to-RP 的局部 SPT(源树)</li>
+<li>控制面：从报文中提取源地址S，主动向Source方向发送 <span
+class="math inline">\((S, G)\)</span>
+Join报文，在RP和FHR间逆向构建Source-to-RP 的局部 SPT(源树)</li>
+</ul></li>
+<li>当组播数据顺着 SPT 正式到达 RP 后，RP
+发现不再需要单播封装流量，随即向 FHR 发送单播 Register-Stop(注册停止)
+报文。FHR 停止单播封装，控制面与数据面在 RP 处完成全面组播化</li>
 </ul>
-</li>
-<li>当组播数据顺着 SPT 正式到达 RP 后，RP 发现不再需要单播封装流量，随即向 FHR 发送单播 Register-Stop(注册停止) 报文。FHR 停止单播封装，控制面与数据面在 RP 处完成全面组播化</li>
-</ul>
-<h5 id="3-RPT向SPT切换→建立直连">3.RPT向SPT切换→建立直连</h5>
+<h5 id="rpt向spt切换建立直连">3.RPT向SPT切换→建立直连</h5>
 <ul>
-<li>LHR 收到组播流后，发现通过 RP 转发的路径属于次优路径(绕路)。LHR 立刻查找去往源$S$的单播路由表，从对应的 RPF 接口直接向源$S$的方向发射精准的 $(S,G)$ Join 报文。</li>
-<li>该 Join 报文在 LHR 与 FHR 之间沿途逆向建树，建立一条绕过 RP 的端到端最优路径 直连 SPT(源树)。</li>
-<li>此时，旧的 RPT 树和新的直连 SPT 树会同时向 LHR 发送重复的组播流量。</li>
-<li>LHR 确认从直连 SPT 收到稳定的组播流后，立即向 RP 方向发送带有 RPT-bit(共享树标志位)的 $(S,G)$ Prune（剪枝）报文。RP 收到后，在自己的出接口列表(OIL)中剔除该 LHR。</li>
-<li>全网流量完全脱离 RP，组播流从源通过最优的直连 SPT 径直涌向接收者。RP 回归静默状态，仅维系控制面的表项握手。</li>
+<li>LHR 收到组播流后，发现通过 RP 转发的路径属于次优路径(绕路)。LHR
+立刻查找去往源<span
+class="math inline">\(S\)</span>的单播路由表，从对应的 RPF
+接口直接向源<span class="math inline">\(S\)</span>的方向发射精准的 <span
+class="math inline">\((S,G)\)</span> Join 报文。</li>
+<li>该 Join 报文在 LHR 与 FHR 之间沿途逆向建树，建立一条绕过 RP
+的端到端最优路径 直连 SPT(源树)。</li>
+<li>此时，旧的 RPT 树和新的直连 SPT 树会同时向 LHR
+发送重复的组播流量。</li>
+<li>LHR 确认从直连 SPT 收到稳定的组播流后，立即向 RP 方向发送带有
+RPT-bit(共享树标志位)的 <span class="math inline">\((S,G)\)</span>
+Prune（剪枝）报文。RP 收到后，在自己的出接口列表(OIL)中剔除该 LHR。</li>
+<li>全网流量完全脱离 RP，组播流从源通过最优的直连 SPT 径直涌向接收者。RP
+回归静默状态，仅维系控制面的表项握手。</li>
 </ul>
-<h3 id="SSM">SSM</h3>
+<h3 id="ssm">SSM</h3>
 <blockquote>
 <ul>
-<li>
-<p>接收者精准知道$(S,G)$（如现代 IPTV/数据中心复制）</p>
-</li>
-<li>
-<p>无需RP、RPT、注册组播源；可以直接组播源和组成员建立SPT</p>
-</li>
-<li>
-<p>周期性Join报文→组播分发树一直存在，不会因为没有组播流量而消失</p>
-</li>
-<li>
-<p>SSM提前定义组播的源地址→可以在成员端DR上基于组播源地址直接反向建立SPT</p>
-</li>
-<li>
-<p>控制面只有$(S,G)$ 表项，天然防范组播 DOS 攻击</p>
-</li>
+<li><p>接收者精准知道<span class="math inline">\((S,G)\)</span>（如现代
+IPTV/数据中心复制）</p></li>
+<li><p>无需RP、RPT、注册组播源；可以直接组播源和组成员建立SPT</p></li>
+<li><p>周期性Join报文→组播分发树一直存在，不会因为没有组播流量而消失</p></li>
+<li><p>SSM提前定义组播的源地址→可以在成员端DR上基于组播源地址直接反向建立SPT</p></li>
+<li><p>控制面只有<span class="math inline">\((S,G)\)</span>
+表项，天然防范组播 DOS 攻击</p></li>
 </ul>
 </blockquote>
-<h4 id="SSM-Mapping">SSM Mapping</h4>
+<h4 id="ssm-mapping">SSM Mapping</h4>
 <blockquote>
 <ul>
-<li>目的：IGMP v1/v2报文无法携带组播源Source信息，使得IGMP v1/v2 也能使用v3 的SSM 服务</li>
+<li>目的：IGMP v1/v2报文无法携带组播源Source信息，使得IGMP v1/v2
+也能使用v3 的SSM 服务</li>
 </ul>
 </blockquote>
-<h5 id="处理规则：">处理规则：</h5>
-<p>配置了SSM Mapping规则后，当IGMP查询器收到主机的IGMPv1或v2报告报文时，首先检查该报文中所携带的组播组地址G，然后根据检查结果的不同分别进行处理：</p>
+<h5 id="处理规则">处理规则：</h5>
+<p>配置了SSM
+Mapping规则后，当IGMP查询器收到主机的IGMPv1或v2报告报文时，首先检查该报文中所携带的组播组地址G，然后根据检查结果的不同分别进行处理：</p>
 <ul>
 <li>G在ASM范围呢，只提供ASM服务</li>
 <li>G在SSM范围内(232.0.0.0/8):
 <ul>
 <li>如果Router没有配置SSM Mapping→丢弃该报文</li>
-<li>​                   配置了→根据路由器配置的SSM映射规则，将IGMPv1/v2报告报文中的 $(*,G)$信息转化为对应的$(G，INCLUDE，(S1,S2……))$信息，以提供SSM组播服务。</li>
+<li>​ 配置了→根据路由器配置的SSM映射规则，将IGMPv1/v2报告报文中的 <span
+class="math inline">\((*,G)\)</span>信息转化为对应的<span
+class="math inline">\((G，INCLUDE，(S1,S2……))\)</span>信息，以提供SSM组播服务。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="ASM-和-SSM区别">ASM 和 SSM区别</h3>
+<h3 id="asm-和-ssm区别">ASM 和 SSM区别</h3>
 <table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 45%" />
+<col style="width: 41%" />
+</colgroup>
 <thead>
 <tr>
 <th>特性</th>
@@ -678,8 +781,9 @@
 <tbody>
 <tr>
 <td>表项</td>
-<td>$(*, G)$ → 只匹配组地址</td>
-<td>$(S, G)$ → 同时匹配源地址和组地址</td>
+<td><span class="math inline">\((*, G)\)</span> → 只匹配组地址</td>
+<td><span class="math inline">\((S, G)\)</span> →
+同时匹配源地址和组地址</td>
 </tr>
 <tr>
 <td>组地址唯一性</td>
@@ -703,57 +807,75 @@
 </tr>
 </tbody>
 </table>
-<p>$(S, G)$ 路由表项用于在PIM网络中建立SPT。对于PIM-DM网络和PIM-SM网络适用。</p>
-<p>$(*, G)$路由表项用于在PIM网络中建立RPT。对于PIM-SM网络适用。</p>
-<hr>
-<h2 id="控制面-数据面→动态时序联动">控制面&amp;数据面→动态时序联动</h2>
-<h3 id="PIM-SSM">PIM-SSM</h3>
-<ol>
-<li><strong>Host发起</strong>：PC通过IGMPv3发送Report报文，内容为：<code>Include （1.1.1.1，232.1.1.1）</code>（Source: 1.1.1.1, Group: 232.1.1.）</li>
+<p><span class="math inline">\((S, G)\)</span>
+路由表项用于在PIM网络中建立SPT。对于PIM-DM网络和PIM-SM网络适用。</p>
+<p><span class="math inline">\((*,
+G)\)</span>路由表项用于在PIM网络中建立RPT。对于PIM-SM网络适用。</p>
+<hr />
+<h2 id="控制面数据面动态时序联动">控制面&amp;数据面→动态时序联动</h2>
+<h3 id="pim-ssm">PIM-SSM</h3>
+<ol type="1">
+<li><strong>Host发起</strong>：PC通过IGMPv3发送Report报文，内容为：<code>Include （1.1.1.1，232.1.1.1）</code>（Source:
+1.1.1.1, Group: 232.1.1.）</li>
 <li><strong>LHR 拦截与翻译</strong>：
 <ul>
 <li>LHR 收到 Report 报文，在本地生成 (1.1.1.1, 232.1.1.1) 表项</li>
-<li>LHR 提取源地址 1.1.1.1，查找本地路由表（单播路由/静态组播路由/MBGP），确定 RPF 上游接口</li>
-</ul>
-</li>
+<li>LHR 提取源地址
+1.1.1.1，查找本地路由表（单播路由/静态组播路由/MBGP），确定 RPF
+上游接口</li>
+</ul></li>
 <li><strong>骨干网逆向建树</strong>：
 <ul>
 <li>由于运行SSM，路由器无需查找RP，LHR直接从RPF接口朝元的方向发送<code>PIM Join</code>报文</li>
-<li>沿途路由器逐跳重复 RPF 检查并向源头转发 Join 报文，沿途全部生成<code>(S，G)</code>表项，逆向构建起一条直至 FHR 的 「SPT（源树）」</li>
-</ul>
-</li>
+<li>沿途路由器逐跳重复 RPF 检查并向源头转发 Join
+报文，沿途全部生成<code>(S，G)</code>表项，逆向构建起一条直至 FHR 的
+「SPT（源树）」</li>
+</ul></li>
 <li><strong>数据面转发&amp;去冗余</strong>：
 <ul>
-<li>顺向转发：组播源 Source 开始发送组播流量。流量顺着刚才建立好的 SPT 树状路径，无环、最优地顺向直达接收者。</li>
-<li>边界去冗余(Assert机制)：若多台路由器在同一个以太网网段同时向下游转发相同的组播流，触发 「PIM Assert（断言）」 机制，通过较量单播路由开销与接口 IP，强行锁定唯一转发者。</li>
-</ul>
-</li>
+<li>顺向转发：组播源 Source 开始发送组播流量。流量顺着刚才建立好的 SPT
+树状路径，无环、最优地顺向直达接收者。</li>
+<li>边界去冗余(Assert机制)：若多台路由器在同一个以太网网段同时向下游转发相同的组播流，触发
+「PIM Assert（断言）」 机制，通过较量单播路由开销与接口
+IP，强行锁定唯一转发者。</li>
+</ul></li>
 </ol>
 <h2 id="常见故障">常见故障</h2>
-<h4 id="⚠️二层组播流量不通">⚠️二层组播流量不通</h4>
+<h4 id="二层组播流量不通">⚠️二层组播流量不通</h4>
 <p>现象：未配置IGMPSnooping时，组播转发正常，配置了IGMPSnooping功能后，发现用户无法收到组播数据</p>
 <ul>
-<li>1.检查是否配置的IGMP Snooping Version较低。<br>
-如果配置的IGMP Snooping Version比用户主机的IGMP版本低，设备在收到IGMPReport报文后，只会<br>
+<li>1.检查是否配置的IGMP Snooping Version较低。 如果配置的IGMP Snooping
+Version比用户主机的IGMP版本低，设备在收到IGMPReport报文后，只会
 向路由器端口转发，不会生成成员端口和转发表项。</li>
 </ul>
 <p>踩坑点 1：地址范围与服务模型不匹配**</p>
 <ul>
-<li>现象：配置了 PIM-SSM，但主机申请的地址在 <code>224.x.x.x</code> 或 <code>239.x.x.x</code> 范围内。</li>
-<li>根因：SSM 默认组范围为 <code>232.0.0.0/8</code>，非此范围的地址默认不触发 SSM 机制，导致 LHR 无法直接建立 <code>(S, G)</code> 表项。</li>
+<li>现象：配置了 PIM-SSM，但主机申请的地址在 <code>224.x.x.x</code> 或
+<code>239.x.x.x</code> 范围内。</li>
+<li>根因：SSM 默认组范围为
+<code>232.0.0.0/8</code>，非此范围的地址默认不触发 SSM 机制，导致 LHR
+无法直接建立 <code>(S, G)</code> 表项。</li>
 </ul>
 <p><strong>⚠️ 踩坑点 2：二层与三层机制断节</strong></p>
 <ul>
 <li>现象：控制面全通，但接收者收不到任何组播流。</li>
-<li>根因：交换机开启了 IGMP Snooping 但未配置「<strong>查询器（Querier）</strong>」，或者 LHR 接口未配置 <code>ip pim</code> 导致交换机无法学习到“路由器端口（Router Port）”，组播流量在二层被直接丢弃。</li>
+<li>根因：交换机开启了 IGMP Snooping
+但未配置「<strong>查询器（Querier）</strong>」，或者 LHR 接口未配置
+<code>ip pim</code> 导致交换机无法学习到“路由器端口（Router
+Port）”，组播流量在二层被直接丢弃。</li>
 </ul>
 <p><strong>⚠️ 踩坑点 3：单播非对称路由引发的 RPF 死锁</strong></p>
 <ul>
-<li>现象：单播物理链路全通，组播路由表项存在但 <code>Incoming interface: Null</code>。</li>
-<li>根因：单播路由表中去往组播源的接口，与组播报文实际流入的物理接口不一致（非对称路径），导致 RPF 检查失败。</li>
-<li>优化方案：必须强制使用「<strong>静态组播路由（Multicast Static Route）</strong>」或「<strong>MBGP</strong>」强行纠正组播的 RPF 选路。</li>
+<li>现象：单播物理链路全通，组播路由表项存在但
+<code>Incoming interface: Null</code>。</li>
+<li>根因：单播路由表中去往组播源的接口，与组播报文实际流入的物理接口不一致（非对称路径），导致
+RPF 检查失败。</li>
+<li>优化方案：必须强制使用「<strong>静态组播路由（Multicast Static
+Route）</strong>」或「<strong>MBGP</strong>」强行纠正组播的 RPF
+选路。</li>
 </ul>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://taypink.github.io">taypink</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://taypink.github.io/posts/561f759a.html">https://taypink.github.io/posts/561f759a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://taypink.github.io" target="_blank">taypink</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">taypink</div><div class="author-info__description">懒得写描述</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">66</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/taypink" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E4%B8%8E%E6%98%A0%E5%B0%84"><span class="toc-text">地址与映射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E5%8A%9F%E8%83%BD%E5%8C%BA%E5%88%86"><span class="toc-text">协议功能区分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2-%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-text">组播控制与数据平面 流程图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E5%9C%B0%E5%9D%80%E4%BD%93%E7%B3%BB"><span class="toc-text">组播地址体系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86"><span class="toc-text">地址划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MAC%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84-%E5%86%B2%E7%AA%81"><span class="toc-text">MAC地址映射&amp;冲突</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A7%A3%E6%9E%90"><span class="toc-text">二进制解析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MAC%E5%86%B2%E7%AA%81%E5%AF%B9%E5%BA%94%E7%9A%84IP%E8%AE%A1%E7%AE%97"><span class="toc-text">MAC冲突对应的IP计算</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IGMP%E4%B8%8E%E4%BA%8C%E5%B1%82%E4%BC%98%E5%8C%96"><span class="toc-text">IGMP与二层优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IGMP"><span class="toc-text">IGMP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E4%BD%8D%E7%BD%AE%EF%BC%88IP%E5%8D%8F%E8%AE%AE%E5%8F%B72"><span class="toc-text">工作位置（IP协议号2)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E8%B7%AF%E7%94%B1%E8%A1%A8%E4%B8%8EIGMP%E7%BB%84%E8%A1%A8%E9%A1%B9%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">组播路由表与IGMP组表项的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E5%8C%BA%E5%88%AB"><span class="toc-text">版本区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%B1%82%E7%BB%84%E6%92%AD%E4%BC%98%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="toc-text">二层组播优化技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IGMP-Snooping-%E6%9C%BA%E5%88%B6"><span class="toc-text">IGMP Snooping 机制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#IGMP-Snooping-Proxy"><span class="toc-text">IGMP Snooping Proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#RP-%E8%B7%AF%E7%94%B1%E5%99%A8%E7%AB%AF%E5%8F%A3-Router-Port"><span class="toc-text">RP-路由器端口(Router Port)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#MP-%E6%88%90%E5%91%98%E7%AB%AF%E5%8F%A3%EF%BC%88Member-Port-%E5%AD%A6%E4%B9%A0%E4%B8%8E%E8%80%81%E5%8C%96"><span class="toc-text">MP-成员端口（Member Port)学习与老化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IGMP-Proxy"><span class="toc-text">IGMP Proxy</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PIM"><span class="toc-text">PIM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E6%8A%A5%E6%96%87%E5%88%97%E8%A1%A8"><span class="toc-text">协议报文列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RP-RPF"><span class="toc-text">RP&amp;RPF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RP%E2%86%92Rendezvous-Point"><span class="toc-text">RP→Rendezvous Point</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RPF-%E9%80%86%E5%90%91%E8%B7%AF%E5%BE%84%E8%BD%AC%E5%8F%91%E6%A3%80%E6%9F%A5"><span class="toc-text">RPF-逆向路径转发检查</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-%E9%98%B2%E7%8E%AF%E6%A0%B8%E5%BF%83"><span class="toc-text">工作原理(防环核心)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%89%E8%B7%AF%E4%BC%98%E5%85%88%E7%BA%A7%EF%BC%9A"><span class="toc-text">选路优先级：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SM-ASM"><span class="toc-text">SM&#x2F;ASM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RP"><span class="toc-text">RP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E7%AB%AF%E6%9E%84%E5%BB%BARPT%E6%A0%91%E6%B5%81%E7%A8%8B"><span class="toc-text">接收端构建RPT树流程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-RPT%E6%9E%84%E5%BB%BA-%E5%85%B1%E4%BA%AB%E6%A0%91-%E2%86%92%E6%8E%A5%E6%94%B6%E8%80%85%E5%85%A5%E7%BB%84"><span class="toc-text">1.RPT构建(共享树)→接收者入组</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E6%BA%90%E7%AB%AF%E6%B3%A8%E5%86%8C%E2%86%92%E7%BB%84%E6%92%AD%E6%BA%90%E4%BA%AE%E8%BA%AB%E4%BB%BD"><span class="toc-text">2.源端注册→组播源亮身份</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-RPT%E5%90%91SPT%E5%88%87%E6%8D%A2%E2%86%92%E5%BB%BA%E7%AB%8B%E7%9B%B4%E8%BF%9E"><span class="toc-text">3.RPT向SPT切换→建立直连</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSM"><span class="toc-text">SSM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SSM-Mapping"><span class="toc-text">SSM Mapping</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E8%A7%84%E5%88%99%EF%BC%9A"><span class="toc-text">处理规则：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASM-%E5%92%8C-SSM%E5%8C%BA%E5%88%AB"><span class="toc-text">ASM 和 SSM区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2-%E6%95%B0%E6%8D%AE%E9%9D%A2%E2%86%92%E5%8A%A8%E6%80%81%E6%97%B6%E5%BA%8F%E8%81%94%E5%8A%A8"><span class="toc-text">控制面&amp;数据面→动态时序联动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PIM-SSM"><span class="toc-text">PIM-SSM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%95%85%E9%9A%9C"><span class="toc-text">常见故障</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F%E4%BA%8C%E5%B1%82%E7%BB%84%E6%92%AD%E6%B5%81%E9%87%8F%E4%B8%8D%E9%80%9A"><span class="toc-text">⚠️二层组播流量不通</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2026 By taypink</div><div class="footer_custom_text">别翻了，到底啦！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://taypink.github.io">taypink</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://taypink.github.io/posts/561f759a.html">https://taypink.github.io/posts/561f759a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://taypink.github.io" target="_blank">taypink</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">taypink</div><div class="author-info__description">懒得写描述</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">66</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/taypink" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E4%B8%8E%E6%98%A0%E5%B0%84"><span class="toc-text">地址与映射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E5%8A%9F%E8%83%BD%E5%8C%BA%E5%88%86"><span class="toc-text">协议功能区分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2-%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-text">组播控制与数据平面 流程图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E5%9C%B0%E5%9D%80%E4%BD%93%E7%B3%BB"><span class="toc-text">组播地址体系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86"><span class="toc-text">地址划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mac%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84%E5%86%B2%E7%AA%81"><span class="toc-text">MAC地址映射&amp;冲突</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A7%A3%E6%9E%90"><span class="toc-text">二进制解析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#mac%E5%86%B2%E7%AA%81%E5%AF%B9%E5%BA%94%E7%9A%84ip%E8%AE%A1%E7%AE%97"><span class="toc-text">MAC冲突对应的IP计算</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#igmp%E4%B8%8E%E4%BA%8C%E5%B1%82%E4%BC%98%E5%8C%96"><span class="toc-text">IGMP与二层优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#igmp"><span class="toc-text">IGMP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E4%BD%8D%E7%BD%AEip%E5%8D%8F%E8%AE%AE%E5%8F%B72"><span class="toc-text">工作位置（IP协议号2)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E8%B7%AF%E7%94%B1%E8%A1%A8%E4%B8%8Eigmp%E7%BB%84%E8%A1%A8%E9%A1%B9%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">组播路由表与IGMP组表项的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E5%8C%BA%E5%88%AB"><span class="toc-text">版本区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%B1%82%E7%BB%84%E6%92%AD%E4%BC%98%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="toc-text">二层组播优化技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#igmp-snooping-%E6%9C%BA%E5%88%B6"><span class="toc-text">IGMP Snooping 机制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#igmp-snooping-proxy"><span class="toc-text">IGMP Snooping Proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#rp-%E8%B7%AF%E7%94%B1%E5%99%A8%E7%AB%AF%E5%8F%A3router-port"><span class="toc-text">RP-路由器端口(Router Port)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#mp-%E6%88%90%E5%91%98%E7%AB%AF%E5%8F%A3member-port%E5%AD%A6%E4%B9%A0%E4%B8%8E%E8%80%81%E5%8C%96"><span class="toc-text">MP-成员端口（Member
+Port)学习与老化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#igmp-proxy"><span class="toc-text">IGMP Proxy</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pim"><span class="toc-text">PIM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E6%8A%A5%E6%96%87%E5%88%97%E8%A1%A8"><span class="toc-text">协议报文列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rprpf"><span class="toc-text">RP&amp;RPF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rprendezvous-point"><span class="toc-text">RP→Rendezvous Point</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rpf-%E9%80%86%E5%90%91%E8%B7%AF%E5%BE%84%E8%BD%AC%E5%8F%91%E6%A3%80%E6%9F%A5"><span class="toc-text">RPF-逆向路径转发检查</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E9%98%B2%E7%8E%AF%E6%A0%B8%E5%BF%83"><span class="toc-text">工作原理(防环核心)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%89%E8%B7%AF%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">选路优先级：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#smasm"><span class="toc-text">SM&#x2F;ASM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rp"><span class="toc-text">RP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E7%AB%AF%E6%9E%84%E5%BB%BArpt%E6%A0%91%E6%B5%81%E7%A8%8B"><span class="toc-text">接收端构建RPT树流程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#rpt%E6%9E%84%E5%BB%BA%E5%85%B1%E4%BA%AB%E6%A0%91%E6%8E%A5%E6%94%B6%E8%80%85%E5%85%A5%E7%BB%84"><span class="toc-text">1.RPT构建(共享树)→接收者入组</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%90%E7%AB%AF%E6%B3%A8%E5%86%8C%E7%BB%84%E6%92%AD%E6%BA%90%E4%BA%AE%E8%BA%AB%E4%BB%BD"><span class="toc-text">2.源端注册→组播源亮身份</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#rpt%E5%90%91spt%E5%88%87%E6%8D%A2%E5%BB%BA%E7%AB%8B%E7%9B%B4%E8%BF%9E"><span class="toc-text">3.RPT向SPT切换→建立直连</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ssm"><span class="toc-text">SSM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ssm-mapping"><span class="toc-text">SSM Mapping</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E8%A7%84%E5%88%99"><span class="toc-text">处理规则：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#asm-%E5%92%8C-ssm%E5%8C%BA%E5%88%AB"><span class="toc-text">ASM 和 SSM区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%95%B0%E6%8D%AE%E9%9D%A2%E5%8A%A8%E6%80%81%E6%97%B6%E5%BA%8F%E8%81%94%E5%8A%A8"><span class="toc-text">控制面&amp;数据面→动态时序联动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pim-ssm"><span class="toc-text">PIM-SSM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%95%85%E9%9A%9C"><span class="toc-text">常见故障</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%B1%82%E7%BB%84%E6%92%AD%E6%B5%81%E9%87%8F%E4%B8%8D%E9%80%9A"><span class="toc-text">⚠️二层组播流量不通</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2026 By taypink</div><div class="footer_custom_text">别翻了，到底啦！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
   if (typeof pangu === 'object') pangu.autoSpacingPage()
   else {
     getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
