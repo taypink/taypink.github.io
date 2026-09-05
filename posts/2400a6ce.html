@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OSPF基础 | taypink</title><meta name="author" content="taypink"><meta name="copyright" content="taypink"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="1&lt;p align&#x3D;&quot;center&quot;&gt;   &lt;img src&#x3D;&quot;&quot; height &#x3D;&quot;80%&quot; width&#x3D;&quot;80%&quot; &#x2F;&gt;   &lt;br&gt;   &lt;span&gt;&lt;&#x2F;span&gt; &lt;&#x2F;p&gt;  from ：kroki-改为mermaid，然后copy下面的代">
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OSPF基础 | taypink</title><meta name="author" content="taypink"><meta name="copyright" content="taypink"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="1&lt;p align&#x3D;&quot;center&quot;&gt;   &lt;img src&#x3D;&quot;&quot; height &#x3D;&quot;80%&quot; width&#x3D;&quot;80%&quot; &#x2F;&gt;   &lt;br&gt;   &lt;span&gt;&lt;&#x2F;span&gt; &lt;&#x2F;p&gt;  from ：kroki-改为mermaid，然后copy下面">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OSPF基础">
 <meta property="og:url" content="https://taypink.github.io/posts/2400a6ce.html">
 <meta property="og:site_name" content="taypink">
-<meta property="og:description" content="1&lt;p align&#x3D;&quot;center&quot;&gt;   &lt;img src&#x3D;&quot;&quot; height &#x3D;&quot;80%&quot; width&#x3D;&quot;80%&quot; &#x2F;&gt;   &lt;br&gt;   &lt;span&gt;&lt;&#x2F;span&gt; &lt;&#x2F;p&gt;  from ：kroki-改为mermaid，然后copy下面的代">
+<meta property="og:description" content="1&lt;p align&#x3D;&quot;center&quot;&gt;   &lt;img src&#x3D;&quot;&quot; height &#x3D;&quot;80%&quot; width&#x3D;&quot;80%&quot; &#x2F;&gt;   &lt;br&gt;   &lt;span&gt;&lt;&#x2F;span&gt; &lt;&#x2F;p&gt;  from ：kroki-改为mermaid，然后copy下面">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/98171449?v=4">
 <meta property="article:published_time" content="2025-10-25T14:48:34.000Z">
@@ -158,51 +158,71 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">68</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top_cute.png')"><nav id="nav"><span id="blog-info"><a href="/" title="taypink"><span class="site-name">taypink</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OSPF基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-25T14:48:34.000Z" title="发表于 2025-10-25 22:48:34">2025-10-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-14T07:56:12.000Z" title="更新于 2026-08-14 15:56:12">2026-08-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Network/">Network</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Network/rs/">R&amp;S</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OSPF基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p align=&quot;center&quot;&gt;   &lt;img src=&quot;&quot; height =&quot;80%&quot; width=&quot;80%&quot; /&gt;   &lt;br&gt;   &lt;span&gt;&lt;/span&gt; &lt;/p&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://kroki.io/mermaid/svg/eNqdlF1PE1sUhu_9FTslJm0yxM4UPQkak7aj8STGc2I98bofUyBOWlNKgLuipRQo5UNAYhFQi0XUtlCsMDPCfzl27T294i-4ZnbLx4QLYy92Z3et9a71vHtPB1Lh54PkiXztGsHP9eukvdak1W_iqZE3X701p_dZQz81pnnY73b9zCywL19ahxn6dfvUeAO6xj7PwmQD035mFu9EUnfNygfINTDWfqHD3iRdq5n1iVNj0-Uhvb13iV90ux4oqpokdGabrk5ZJW6YX2TFeuuwyPQDWpjglR6Xp9OWF0puFw-wmSbNTNB1za6Vk6MJ8n9uifydGErbD1Lv0_C4Xe2gkpCK6SdOKls-cMamFTpsC9YDXanTuSpor5x4La1M597Deh1Kx0zPmTMvuvMGuCCCnk1KizvmScme995YKB1O8UnvjUUHw4kBxd48TIZjQ4kB-_n-iKp6HHrIf5NV5sg_oX_vd8zDGVraErdBJjfIw9Bje_3PXv3RZ04Nn9tFtw7h5KUVJrRRoge7aDvu5AChswZM2ZBuke3pqCFZX5h5lZk-NLOtZx1m8j7B84syzc1k-8cwlYOaYeZ3nU6a1Xes-pquZ1rGmvm9BsfZ7tRBroZOWsxWUmOFX5iCBpubkJuE8ieWbdLXW6xY8zjK0DBYyKJlKMqW95AFNmaRFoxMeznDu9pqweRwGmlpcRvmP8DhR6j-uIq4z7o-2nsHMW8md4mhVOpcn_wS5HOwVDArWbpy4ISGcsUK7LxjPxaZvo7oUFjtAshcE7mh_Iaz0o0m3cja4_pTSph4iXVu7bcb7d0dONrnSQjhQ8zuiV2QQi_Y9BGtzvBEWyeUHolgxZNkOqyq46SzfRTCm3H-a2fbh7I3blrLX1c3sG5WsQL5ZvvzGtMqVrNMxW7D3Tcn8IXKo9KFo1s1T6aoXr7sNV2t4zGhCtSOaG0ZtI906zsY8-y4iA7xtKgaHh6WlTiJqCMKGU6nks-U_h6fFInH4wLf9o4OxdKD_dLzMSE-pKr9PaIoCtGkmkz192DWbYfQQEpREmdKt7xx7y3vnymNW39uo2dS8UjUK8X-TCqlxM514n2xvt_XuaBE_IJfFPySbdbFFiQgBEQhIAkBH-e_FAwKQVEISh2eSyFZkEVBlgTZZ414-xcbVrze" alt=""></p>
-<p>from ：<a target="_blank" rel="noopener" href="https://kroki.io">kroki</a>-改为mermaid，然后copy下面的代码就好</p>
-<h2 id="一-、报文：">一 、报文：</h2>
+<p><img
+src="https://kroki.io/mermaid/svg/eNqdlF1PE1sUhu_9FTslJm0yxM4UPQkak7aj8STGc2I98bofUyBOWlNKgLuipRQo5UNAYhFQi0XUtlCsMDPCfzl27T294i-4ZnbLx4QLYy92Z3et9a71vHtPB1Lh54PkiXztGsHP9eukvdak1W_iqZE3X701p_dZQz81pnnY73b9zCywL19ahxn6dfvUeAO6xj7PwmQD035mFu9EUnfNygfINTDWfqHD3iRdq5n1iVNj0-Uhvb13iV90ux4oqpokdGabrk5ZJW6YX2TFeuuwyPQDWpjglR6Xp9OWF0puFw-wmSbNTNB1za6Vk6MJ8n9uifydGErbD1Lv0_C4Xe2gkpCK6SdOKls-cMamFTpsC9YDXanTuSpor5x4La1M597Deh1Kx0zPmTMvuvMGuCCCnk1KizvmScme995YKB1O8UnvjUUHw4kBxd48TIZjQ4kB-_n-iKp6HHrIf5NV5sg_oX_vd8zDGVraErdBJjfIw9Bje_3PXv3RZ04Nn9tFtw7h5KUVJrRRoge7aDvu5AChswZM2ZBuke3pqCFZX5h5lZk-NLOtZx1m8j7B84syzc1k-8cwlYOaYeZ3nU6a1Xes-pquZ1rGmvm9BsfZ7tRBroZOWsxWUmOFX5iCBpubkJuE8ieWbdLXW6xY8zjK0DBYyKJlKMqW95AFNmaRFoxMeznDu9pqweRwGmlpcRvmP8DhR6j-uIq4z7o-2nsHMW8md4mhVOpcn_wS5HOwVDArWbpy4ISGcsUK7LxjPxaZvo7oUFjtAshcE7mh_Iaz0o0m3cja4_pTSph4iXVu7bcb7d0dONrnSQjhQ8zuiV2QQi_Y9BGtzvBEWyeUHolgxZNkOqyq46SzfRTCm3H-a2fbh7I3blrLX1c3sG5WsQL5ZvvzGtMqVrNMxW7D3Tcn8IXKo9KFo1s1T6aoXr7sNV2t4zGhCtSOaG0ZtI906zsY8-y4iA7xtKgaHh6WlTiJqCMKGU6nks-U_h6fFInH4wLf9o4OxdKD_dLzMSE-pKr9PaIoCtGkmkz192DWbYfQQEpREmdKt7xx7y3vnymNW39uo2dS8UjUK8X-TCqlxM514n2xvt_XuaBE_IJfFPySbdbFFiQgBEQhIAkBH-e_FAwKQVEISh2eSyFZkEVBlgTZZ414-xcbVrze" /></p>
+<p>from ：<a
+target="_blank" rel="noopener" href="https://kroki.io">kroki</a>-改为mermaid，然后copy下面的代码就好</p>
+<h2 id="一-报文">一 、报文：</h2>
 <h3 id="报文类型">报文类型</h3>
 <p>LSDB：Link State Database、LSA：Link State Advertisement</p>
 <table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 58%" />
+</colgroup>
 <thead>
 <tr>
-<th style="text-align:left">报文类型</th>
-<th style="text-align:left">报文作用</th>
+<th style="text-align: left;">报文类型</th>
+<th style="text-align: left;">报文作用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">Hello</td>
-<td style="text-align:left">周期性发送，用来发现和维持OSPF邻居关系。</td>
+<td style="text-align: left;">Hello</td>
+<td
+style="text-align: left;">周期性发送，用来发现和维持OSPF邻居关系。</td>
 </tr>
 <tr>
-<td style="text-align:left">DD<br />(Database Description)</td>
-<td style="text-align:left">描述本地LSDB的摘要信息，用于两台设备进行数据库同步。<br />出现在：ExStart 发空报文选老大，Exchange 发实报文对目录</td>
+<td style="text-align: left;">DD<br />(Database Description)</td>
+<td
+style="text-align: left;">描述本地LSDB的摘要信息，用于两台设备进行数据库同步。<br />出现在：ExStart
+发空报文选老大，Exchange 发实报文对目录</td>
 </tr>
 <tr>
-<td style="text-align:left">LSR<br />(Link State <strong>Request</strong> packet  )</td>
-<td style="text-align:left">用于向对方请求所需的LSA。设备只有在OSPF邻居双方成功交换DD报文后才会向对方发出LSR报文。</td>
+<td style="text-align: left;">LSR<br />(Link State
+<strong>Request</strong> packet )</td>
+<td
+style="text-align: left;">用于向对方请求所需的LSA。设备只有在OSPF邻居双方成功交换DD报文后才会向对方发出LSR报文。</td>
 </tr>
 <tr>
-<td style="text-align:left">LSU<br />(……Update)</td>
-<td style="text-align:left">用于向对方发送其所需要的LSA。</td>
+<td style="text-align: left;">LSU<br />(……Update)</td>
+<td style="text-align: left;">用于向对方发送其所需要的LSA。</td>
 </tr>
 <tr>
-<td style="text-align:left">LSAck<br />(……Acknowledgment)</td>
-<td style="text-align:left">用来对收到的LSA进行确认。</td>
+<td style="text-align: left;">LSAck<br />(……Acknowledgment)</td>
+<td style="text-align: left;">用来对收到的LSA进行确认。</td>
 </tr>
 </tbody>
 </table>
-<hr>
+<hr />
 <h3 id="邻居关系建立">邻居关系建立</h3>
 <h4 id="状态机">状态机</h4>
 <blockquote>
 <p>8种：</p>
-<p><strong>发现</strong>：Down $\rightarrow$ Attempt $\rightarrow$ Init $\rightarrow$ 2-way</p>
-<p><strong>中间过渡</strong>：Exstart $\rightarrow$ Exchange</p>
-<p><strong>同步</strong>：Loading $\rightarrow$ Full</p>
+<p><strong>发现</strong>：Down <span
+class="math inline">\(\rightarrow\)</span> Attempt <span
+class="math inline">\(\rightarrow\)</span> Init <span
+class="math inline">\(\rightarrow\)</span> 2-way</p>
+<p><strong>中间过渡</strong>：Exstart <span
+class="math inline">\(\rightarrow\)</span> Exchange</p>
+<p><strong>同步</strong>：Loading <span
+class="math inline">\(\rightarrow\)</span> Full</p>
 </blockquote>
 <table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 88%" />
+</colgroup>
 <thead>
 <tr>
 <th>状态机</th>
@@ -216,15 +236,18 @@
 </tr>
 <tr>
 <td>Attempt</td>
-<td><strong>仅在 NBMA</strong> 网络中出现，主动向未回应的邻居发送 Hello 报文。</td>
+<td><strong>仅在 NBMA</strong> 网络中出现，主动向未回应的邻居发送 Hello
+报文。</td>
 </tr>
 <tr>
 <td>Init</td>
-<td>收到Hello报文后，但对方的 Hello 报文里的“邻居列表”中还没有自己的 Router ID</td>
+<td>收到Hello报文后，但对方的 Hello 报文里的“邻居列表”中还没有自己的
+Router ID</td>
 </tr>
 <tr>
 <td>2-way</td>
-<td>收到的 Hello 报文中已包含自己的 Router ID；<br />非 DR/BDR 的 DROther 路由器之间会永远停留在该状态<br />此时“邻居关系”正式建立</td>
+<td>收到的 Hello 报文中已包含自己的 Router ID；<br />非 DR/BDR 的
+DROther 路由器之间会永远停留在该状态<br />此时“邻居关系”正式建立</td>
 </tr>
 <tr>
 <td>Exstart</td>
@@ -236,7 +259,8 @@
 </tr>
 <tr>
 <td>Loading</td>
-<td>对比摘要后，向对方发送 LSR 请求缺少的 LSA，对方回应 LSU，本端回应 LSAck</td>
+<td>对比摘要后，向对方发送 LSR 请求缺少的 LSA，对方回应 LSU，本端回应
+LSAck</td>
 </tr>
 <tr>
 <td>Full</td>
@@ -245,28 +269,25 @@
 </tbody>
 </table>
 <h4 id="建立条件">建立条件</h4>
-<p>$$\text{接口同网段} \longrightarrow \underbrace{\text{RID 唯一} + \text{Timer 一致}  }<em>{\text{Hello 报文审查 (冲向 2-Way)}}+\text{网络类型一致} \longrightarrow \underbrace{\text{MTU 一致 Check}}</em>{\text{DD 报文审查 (冲向 Full)}}$$</p>
+<p><span class="math display">\[\text{接口同网段} \longrightarrow
+\underbrace{\text{RID 唯一} + \text{Timer 一致}  }_{\text{Hello 报文审查
+(冲向 2-Way)}}+\text{网络类型一致} \longrightarrow \underbrace{\text{MTU
+一致 Check}}_{\text{DD 报文审查 (冲向 Full)}}\]</span></p>
 <p>⚠️：Cisco默认开启DD报文的MTU检查，华为默认不启用</p>
 <ul>
-<li>
-<p>Router-id 唯一（AS内）</p>
-</li>
-<li>
-<p>直连接口必须在同一网段(P2P中依旧可以Full)</p>
-</li>
-<li>
-<p>Timer<br>
-hello/dead</p>
-</li>
-<li>
-<p>网络类型一致</p>
-<p>P2P/Broadcast</p>
-</li>
-<li>
-<p>MTU 一致 Check</p>
-</li>
+<li><p>Router-id 唯一（AS内）</p></li>
+<li><p>直连接口必须在同一网段(P2P中依旧可以Full)</p></li>
+<li><p>Timer hello/dead</p></li>
+<li><p>网络类型一致</p>
+<p>P2P/Broadcast</p></li>
+<li><p>MTU 一致 Check</p></li>
 </ul>
 <table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 14%" />
+<col style="width: 63%" />
+</colgroup>
 <thead>
 <tr>
 <th><strong>Check-list</strong></th>
@@ -278,7 +299,8 @@ hello/dead</p>
 <tr>
 <td>Router-ID冲突（AS内）</td>
 <td>Hello / DD</td>
-<td>同一广播/交换机下：卡在ExStart/Exchange<br />P2P直连：卡在 <strong>Init</strong> 或无法发现；<br />非直连冲突导致5类LSA震荡</td>
+<td>同一广播/交换机下：卡在ExStart/Exchange<br />P2P直连：卡在
+<strong>Init</strong> 或无法发现；<br />非直连冲突导致5类LSA震荡</td>
 </tr>
 <tr>
 <td>同一网段（注意掩码）</td>
@@ -288,7 +310,8 @@ hello/dead</p>
 <tr>
 <td>网络类型</td>
 <td>接口层 / 逻辑</td>
-<td>P2P 连 Broadcast 能到 <strong>Full</strong>，但两端计算出来的拓扑不一致，<strong>无法计算出路由！</strong></td>
+<td>P2P 连 Broadcast 能到
+<strong>Full</strong>，但两端计算出来的拓扑不一致，<strong>无法计算出路由！</strong></td>
 </tr>
 <tr>
 <td>MTU Check</td>
@@ -303,12 +326,14 @@ hello/dead</p>
 <tr>
 <td>Auth&amp;PWD</td>
 <td>OSPF 头部</td>
-<td>密码错或认证类型不匹配，直接丢弃报文，卡在 <strong>Down</strong></td>
+<td>密码错或认证类型不匹配，直接丢弃报文，卡在
+<strong>Down</strong></td>
 </tr>
 <tr>
 <td>区域属性 (Option)</td>
 <td>Hello 报文</td>
-<td>E-bit（Stub属性）、N-bit（NSSA属性）不匹配，直接卡在 <strong>Down</strong></td>
+<td>E-bit（Stub属性）、N-bit（NSSA属性）不匹配，直接卡在
+<strong>Down</strong></td>
 </tr>
 </tbody>
 </table>
@@ -318,25 +343,30 @@ hello/dead</p>
 <li>区域验证</li>
 <li>接口验证（<strong>优先</strong>）</li>
 </ul>
-<h2 id="二、网络类型-角色">二、网络类型&amp;角色</h2>
+<h2 id="二网络类型角色">二、网络类型&amp;角色</h2>
 <blockquote>
-<p>💡：<u>路由器的 ASBR 身份与它是否成为DR没有任何关系，ASBR 同样可以被选举为某个网段的 DR，两者相互独立</u></p>
+<p>💡：<u>路由器的 ASBR 身份与它是否成为DR没有任何关系，ASBR
+同样可以被选举为某个网段的 DR，两者相互独立</u></p>
 <ul>
-<li>
-<p>路由器角色(整机)：基于路由器在拓扑中的位置划分，共有四种：IR、ABR、BR、ASBR</p>
-</li>
-<li>
-<p>接口状态角色(链路)：基于多路访问网段的选举，包括 DR、BDR 和 DRother。</p>
-</li>
+<li><p>路由器角色(整机)：基于路由器在拓扑中的位置划分，共有四种：IR、ABR、BR、ASBR</p></li>
+<li><p>接口状态角色(链路)：基于多路访问网段的选举，包括 DR、BDR 和
+DRother。</p></li>
 </ul>
 </blockquote>
-<h3 id="Network-Type">Network Type</h3>
+<h3 id="network-type">Network Type</h3>
 <p>G-组播，U-单播</p>
 <table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 43%" />
+</colgroup>
 <thead>
 <tr>
-<th style="text-align:left">网络类型</th>
-<th style="text-align:left">地址</th>
+<th style="text-align: left;">网络类型</th>
+<th style="text-align: left;">地址</th>
 <th>DR/BDR选举？</th>
 <th>Timer 间隔</th>
 <th>报文形式</th>
@@ -344,41 +374,41 @@ hello/dead</p>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">Broadcast（以太网默认</td>
-<td style="text-align:left">G-224.0.0.5/6</td>
+<td style="text-align: left;">Broadcast（以太网默认</td>
+<td style="text-align: left;">G-224.0.0.5/6</td>
 <td>✅</td>
 <td>Hello 10s<br />Dead 40s</td>
 <td>Multicast→Hello、LSU、LSAck<br />同步Unicast→DD/LSR</td>
 </tr>
 <tr>
-<td style="text-align:left">P2P（PPP/HDLC默认）</td>
-<td style="text-align:left">G-224.0.0.5</td>
+<td style="text-align: left;">P2P（PPP/HDLC默认）</td>
+<td style="text-align: left;">G-224.0.0.5</td>
 <td>❌</td>
 <td>Hello 10s<br />Dead 40s</td>
 <td>Multicast方便，省得找IP</td>
 </tr>
 <tr>
-<td style="text-align:left">P2MP<br />必须手动修改为此类型</td>
-<td style="text-align:left">G-224.0.0.5</td>
+<td style="text-align: left;">P2MP<br />必须手动修改为此类型</td>
+<td style="text-align: left;">G-224.0.0.5</td>
 <td>❌</td>
 <td>Hello 30s<br />Dead 120s</td>
 <td>不选举DR/BDR<br />所以用Multicast Hello发现<br />剩下的Unicast</td>
 </tr>
 <tr>
-<td style="text-align:left">NBMA（帧中继默认）</td>
-<td style="text-align:left">U-单播Peer</td>
+<td style="text-align: left;">NBMA（帧中继默认）</td>
+<td style="text-align: left;">U-单播Peer</td>
 <td>✅</td>
 <td>Hello 30s<br />Dead 120s</td>
 <td>物理限制，只能Unicast</td>
 </tr>
 </tbody>
 </table>
-<h4 id="DR选举条件">DR选举条件</h4>
+<h4 id="dr选举条件">DR选举条件</h4>
 <ul>
 <li>先看优先级，0~255（越大越优先，0代表不参加选举）</li>
 <li>若优先级相同，则比较 Router ID，越大越优先</li>
 </ul>
-<h5 id="Broadcast-选举DR">Broadcast 选举DR</h5>
+<h5 id="broadcast-选举dr">Broadcast 选举DR</h5>
 <blockquote>
 <p>版本区别：</p>
 <ul>
@@ -388,48 +418,70 @@ hello/dead</p>
 </blockquote>
 <h3 id="路由器类型">路由器类型</h3>
 <blockquote>
-<p>ASBR可以是任何OSPF路由器，且ASBR功能与ABR功能相独立，<br>
+<p>ASBR可以是任何OSPF路由器，且ASBR功能与ABR功能相独立，
 OSPF域可以有ASBR而没有ABR，OSPF路由器可以同时是ASBR和ABR。</p>
 <p>ABR必须同时满足以下两个条件：</p>
 <p>1.连接了两个或多个不同的 OSPF 区域。</p>
 <p>2.至少有一个活跃的接口属于骨干区域（Area 0）。</p>
 </blockquote>
 <table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 69%" />
+</colgroup>
 <thead>
 <tr>
-<th style="text-align:left">路由器类型</th>
-<th style="text-align:left">含义</th>
+<th style="text-align: left;">路由器类型</th>
+<th style="text-align: left;">含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">IR（Internal Router）</td>
-<td style="text-align:left">该设备的所有端口都属于同一个 OSPF 区域，只维护所在区域的 LSDB。</td>
+<td style="text-align: left;">IR（Internal Router）</td>
+<td style="text-align: left;">该设备的所有端口都属于同一个 OSPF
+区域，只维护所在区域的 LSDB。</td>
 </tr>
 <tr>
-<td style="text-align:left">ABR（Area Border Router）</td>
-<td style="text-align:left">用来连接骨干区域和非骨干区域，<strong>它会同时维护骨干区域和所连非骨干区域的 LSDB</strong>。它与骨干区域之间可以是物理连接，也可以是逻辑连接（如虚连接）。</td>
+<td style="text-align: left;">ABR（Area Border Router）</td>
+<td
+style="text-align: left;">用来连接骨干区域和非骨干区域，<strong>它会同时维护骨干区域和所连非骨干区域的
+LSDB</strong>。它与骨干区域之间可以是物理连接，也可以是逻辑连接（如虚连接）。</td>
 </tr>
 <tr>
-<td style="text-align:left">BR（Backbone Router）</td>
-<td style="text-align:left">至少有一个接口属于骨干区域（Area 0）。所有的 ABR 和完全位于 Area 0 的内部设备（IR）都是骨干路由器。</td>
+<td style="text-align: left;">BR（Backbone Router）</td>
+<td style="text-align: left;">至少有一个接口属于骨干区域（Area
+0）。所有的 ABR 和完全位于 Area 0 的内部设备（IR）都是骨干路由器。</td>
 </tr>
 <tr>
-<td style="text-align:left">ASBR（AS Boundary Router）</td>
-<td style="text-align:left"><strong>只要一台 OSPF 设备引入了外部路由，它就成为了 ASBR</strong>。<br />与其他 AS 交换路由信息的设备。ASBR 并不一定位于物理边界，它可能是区域内设备，也可能是 ABR。</td>
+<td style="text-align: left;">ASBR（AS Boundary Router）</td>
+<td style="text-align: left;"><strong>只要一台 OSPF
+设备引入了外部路由，它就成为了 ASBR</strong>。<br />与其他 AS
+交换路由信息的设备。ASBR
+并不一定位于物理边界，它可能是区域内设备，也可能是 ABR。</td>
 </tr>
 </tbody>
 </table>
-<p><img src="https://img2020.cnblogs.com/blog/2387753/202106/2387753-20210602115851102-666405640.png" alt=""></p>
-<p>图片来源：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhijiyiyu/p/14847667.html">OSPF的多区域原理与配置</a></p>
-<h3 id="六类LSA-外部路由">六类LSA&amp;外部路由</h3>
-<h4 id="LSA类型">LSA类型</h4>
+<p><img
+src="https://img2020.cnblogs.com/blog/2387753/202106/2387753-20210602115851102-666405640.png" /></p>
+<p>图片来源：<a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/zhijiyiyu/p/14847667.html">OSPF的多区域原理与配置</a></p>
+<h3 id="六类lsa外部路由">六类LSA&amp;外部路由</h3>
+<h4 id="lsa类型">LSA类型</h4>
 <blockquote>
 <p>1/2类看区域内，3类过区域，4/5/7类向AS区外</p>
 <p>Link State ID：它的标题写什么</p>
 <p>Advertising Router：谁写的这封信</p>
 </blockquote>
 <table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 8%" />
+<col style="width: 27%" />
+<col style="width: 12%" />
+<col style="width: 9%" />
+<col style="width: 14%" />
+<col style="width: 24%" />
+</colgroup>
 <thead>
 <tr>
 <th>Type</th>
@@ -500,12 +552,26 @@ OSPF域可以有ASBR而没有ABR，OSPF路由器可以同时是ASBR和ABR。</p>
 </table>
 <p>⚠️：</p>
 <blockquote>
-<p>Type 5 LSA 穿越Area 时候会<strong>不会变</strong>→区域外路由，ABR不会重新advertise，只需要flooding</p>
+<p>Type 5 LSA 穿越Area
+时候会<strong>不会变</strong>→区域外路由，ABR不会重新advertise，只需要flooding</p>
 <p>Type 3/4 都是Area内的，穿越需要重新Advertise</p>
-<p>$Advertising Router$、$Metric$会变更，$State ~link~ ID$不变</p>
+<p><span class="math inline">\(Advertising Router\)</span>、<span
+class="math inline">\(Metric\)</span>会变更，<span
+class="math inline">\(State ~link~ ID\)</span>不变</p>
 </blockquote>
-<p><strong>NSSA 7 转 5 机制</strong>： 在 NSSA（Not-So-Stubby Area）区域中，外部路由会先生成 <strong>7 类 LSA</strong>。当 7 类 LSA 需要通过 ABR 传入骨干区域（变为 5 类 LSA）时，为了避免多台 ABR 重复转换造成资源浪费，OSPF 规定：<strong>只有 Router ID 最大的那台 NSSA ABR，才会执行“7 类转 5 类”的转换操作。</strong></p>
+<p><strong>NSSA 7 转 5 机制</strong>： 在 NSSA（Not-So-Stubby
+Area）区域中，外部路由会先生成 <strong>7 类 LSA</strong>。当 7 类 LSA
+需要通过 ABR 传入骨干区域（变为 5 类 LSA）时，为了避免多台 ABR
+重复转换造成资源浪费，OSPF 规定：<strong>只有 Router ID 最大的那台 NSSA
+ABR，才会执行“7 类转 5 类”的转换操作。</strong></p>
 <table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 15%" />
+<col style="width: 19%" />
+<col style="width: 26%" />
+<col style="width: 23%" />
+</colgroup>
 <thead>
 <tr>
 <th>LSA 类型</th>
@@ -541,6 +607,11 @@ OSPF域可以有ASBR而没有ABR，OSPF路由器可以同时是ASBR和ABR。</p>
 </table>
 <h4 id="外部路由">外部路由</h4>
 <table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 20%" />
+<col style="width: 72%" />
+</colgroup>
 <thead>
 <tr>
 <th></th>
@@ -552,7 +623,8 @@ OSPF域可以有ASBR而没有ABR，OSPF路由器可以同时是ASBR和ABR。</p>
 <tr>
 <td>Type1</td>
 <td>Type 1 &gt; Type 2</td>
-<td><strong>累加</strong>，初始外部 Cost + 沿途所有内部 OSPF 链路 Cost</td>
+<td><strong>累加</strong>，初始外部 Cost + 沿途所有内部 OSPF 链路
+Cost</td>
 </tr>
 <tr>
 <td>Type2</td>
@@ -562,35 +634,54 @@ OSPF域可以有ASBR而没有ABR，OSPF路由器可以同时是ASBR和ABR。</p>
 </tbody>
 </table>
 <blockquote>
-<p>有两个 ASBR 同时引入了同一条 Type 2 路由，且它们的 Type 2  Metric 都是 20。</p>
+<p>有两个 ASBR 同时引入了同一条 Type 2 路由，且它们的 Type 2 Metric 都是
+20。</p>
 <p>对于IR(内部路由器)来说，那到底该走哪边？</p>
 </blockquote>
-<p>→当 Type 2 的外部Metric相同时，OSPF 就会开始对比 <strong>“谁距离 ASBR 更近”</strong>（即比较到达 ASBR 的内部路径Metric，也就是 Type 4 LSA 里携带的Cost）。</p>
-<h2 id="三、路由聚合-过滤：">三、路由聚合&amp;过滤：</h2>
+<p>→当 Type 2 的外部Metric相同时，OSPF 就会开始对比 <strong>“谁距离 ASBR
+更近”</strong>（即比较到达 ASBR 的内部路径Metric，也就是 Type 4 LSA
+里携带的Cost）。</p>
+<h2 id="三路由聚合过滤">三、路由聚合&amp;过滤：</h2>
 <h4 id="聚合">聚合</h4>
 <ul>
-<li>
-<p>ABR聚合</p>
-<p>对<code>Type 3 LSA</code>聚合（针对区域内）</p>
-</li>
-<li>
-<p>ASBR聚合</p>
+<li><p>ABR聚合</p>
+<p>对<code>Type 3 LSA</code>聚合（针对区域内）</p></li>
+<li><p>ASBR聚合</p>
 <p>对 <code>Type5、Type7</code>LSA聚合（针对外部引入路由）</p>
-<p>如果既是ASBR又是ABR，则对由Type7 LSA转化成的Type5 LSA进行聚合处理。</p>
-</li>
+<p>如果既是ASBR又是ABR，则对由Type7 LSA转化成的Type5
+LSA进行聚合处理。</p></li>
 </ul>
-<h4 id="过滤：">过滤：</h4>
-<p>可以使用的PBR：$route-policy$、$access-list$、$prefix-list$</p>
-<p><strong>不可在区域内过滤拓扑（LSA）</strong>： 由于 1/2 类 LSA 必须全区域完全一致，OSPF <strong>无法在区域内阻止 LSA 的泛洪</strong>。你使用 <code>filter-policy import</code> 过滤路由，<strong>只能阻止路由进入当前路由器的路由表（RIB），但无法阻止 LSA 传递给下游邻居</strong>。下游路由器依然能学到路由！</p>
-<p><strong>区域间/边界过滤（Filter ABR/ASBR）</strong>： 只有在 ABR 传递 3类LSA，或者 ASBR 引入 5类LSA 的<strong>边界</strong>上，使用 <code>filter</code> 命令，才能真正将 LSA “拦腰斩断”，让下游路由器完全收不到。</p>
+<h4 id="过滤">过滤：</h4>
+<p>可以使用的PBR：<span
+class="math inline">\(route-policy\)</span>、<span
+class="math inline">\(access-list\)</span>、<span
+class="math inline">\(prefix-list\)</span></p>
+<p><strong>不可在区域内过滤拓扑（LSA）</strong>： 由于 1/2 类 LSA
+必须全区域完全一致，OSPF <strong>无法在区域内阻止 LSA
+的泛洪</strong>。你使用 <code>filter-policy import</code>
+过滤路由，<strong>只能阻止路由进入当前路由器的路由表（RIB），但无法阻止
+LSA 传递给下游邻居</strong>。下游路由器依然能学到路由！</p>
+<p><strong>区域间/边界过滤（Filter ABR/ASBR）</strong>： 只有在 ABR 传递
+3类LSA，或者 ASBR 引入 5类LSA 的<strong>边界</strong>上，使用
+<code>filter</code> 命令，才能真正将 LSA
+“拦腰斩断”，让下游路由器完全收不到。</p>
 <h4 id="负载均衡">负载均衡</h4>
 <p>先比较路由优先级，再比接口ID(越大越好)</p>
 <p>cisco：maximum-paths / 华为：maximum load-balancing</p>
-<h2 id="四、OSPF区域与过滤">四、OSPF区域与过滤</h2>
+<h2 id="四ospf区域与过滤">四、OSPF区域与过滤</h2>
 <p>核心目的：给边缘路由器瘦身</p>
-<p>在大型网络中，成千上万条外部路由(如引入的静态路由、BGP 路由)会导致边缘路由器的性能跟不上。<br>
-通过配置这些特殊区域，我们可以挡住复杂的外部 LSA，取而代之的是让ABR下发一条简单的默认路由，从而减轻边缘路由器的负担。</p>
+<p>在大型网络中，成千上万条外部路由(如引入的静态路由、BGP
+路由)会导致边缘路由器的性能跟不上。
+通过配置这些特殊区域，我们可以挡住复杂的外部
+LSA，取而代之的是让ABR下发一条简单的默认路由，从而减轻边缘路由器的负担。</p>
 <table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+<col style="width: 36%" />
+<col style="width: 16%" />
+</colgroup>
 <thead>
 <tr>
 <th>区域类型</th>
@@ -633,6 +724,11 @@ OSPF域可以有ASBR而没有ABR，OSPF路由器可以同时是ASBR和ABR。</p>
 </table>
 <h4 id="特殊区域-默认路由生成">特殊区域 默认路由生成</h4>
 <table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 24%" />
+<col style="width: 63%" />
+</colgroup>
 <thead>
 <tr>
 <th>区域类型</th>
@@ -644,7 +740,8 @@ OSPF域可以有ASBR而没有ABR，OSPF路由器可以同时是ASBR和ABR。</p>
 <tr>
 <td>STUB</td>
 <td>3类 LSA</td>
-<td>自动生成。只要配置了 Stub，ABR 就会无条件向区域内派发一条 3类的默认路由。</td>
+<td>自动生成。只要配置了 Stub，ABR 就会无条件向区域内派发一条
+3类的默认路由。</td>
 </tr>
 <tr>
 <td>Totally STUB</td>
@@ -654,23 +751,32 @@ OSPF域可以有ASBR而没有ABR，OSPF路由器可以同时是ASBR和ABR。</p>
 <tr>
 <td>NSSA</td>
 <td>7类 LSA</td>
-<td>手工触发/不自动。在 ABR 上配置时，必须加上关键字（如华为：<code>nssa default-route-advertise</code>）才会产生 7类默认路由。</td>
+<td>手工触发/不自动。在 ABR
+上配置时，必须加上关键字（如华为：<code>nssa default-route-advertise</code>）才会产生
+7类默认路由。</td>
 </tr>
 <tr>
 <td>Totally NSSA</td>
 <td>3类 LSA</td>
-<td>自动生成。只要配置了 Totally，它的 ABR 就会自动产生一条 3类的默认路由。</td>
+<td>自动生成。只要配置了 Totally，它的 ABR 就会自动产生一条
+3类的默认路由。</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
 <p>为什么普通的 NSSA 区域 ABR 不自动生成默认路由？</p>
-<p>→ 因为 NSSA 区域允许外来路由进来（有 ASBR），它本身可能就是个出口。如果 ABR 盲目自动生成默认路由引导流量去骨干网，可能会和 NSSA 区域原有的外部出口产生<strong>环路</strong>。所以 OSPF 把决定权交给了管理员。</p>
+<p>→ 因为 NSSA 区域允许外来路由进来（有
+ASBR），它本身可能就是个出口。如果 ABR
+盲目自动生成默认路由引导流量去骨干网，可能会和 NSSA
+区域原有的外部出口产生<strong>环路</strong>。所以 OSPF
+把决定权交给了管理员。</p>
 </blockquote>
-<h4 id="NSSA区域：">NSSA区域：</h4>
+<h4 id="nssa区域">NSSA区域：</h4>
 <p>STUB区域→不能引入外部路由，NSSA区域能够将AS外部路由引入并传播到整个OSPF自治域中。</p>
 <p>当区域配置为NSSA区域后，为保证到自治系统外的路由可达，NSSA区域的ABR将生成一条缺省路由，并发布给NSSA区域中的其他路由器。</p>
-<p>NSSA 区域中，默认情况下 ABR 不会自动向该区域发布缺省路由（只有手动配置 nssa default-route-advertise 指令，或者在 Totally NSSA 区域下，ABR 才会自动产生默认路由）</p>
+<p>NSSA 区域中，默认情况下 ABR
+不会自动向该区域发布缺省路由（只有手动配置 nssa default-route-advertise
+指令，或者在 Totally NSSA 区域下，ABR 才会自动产生默认路由）</p>
 <p>配置NSSA区域时需要注意下列几点：</p>
 <ul>
 <li>骨干区域不能配置成NSSA区域。</li>
@@ -678,7 +784,7 @@ OSPF域可以有ASBR而没有ABR，OSPF路由器可以同时是ASBR和ABR。</p>
 <li>虚连接不能穿过NSSA区域</li>
 <li>由非 NSSA 区域 ABR 生成 Type 4 LSA(Inter-Area-Router)</li>
 </ul>
-<h4 id="Stub区域：">Stub区域：</h4>
+<h4 id="stub区域">Stub区域：</h4>
 <p>STUB区域是一些特定的区域，STUB区域的ABR不传播它们接收到的自治系统外部路由，在这些区域中路由器的路由表规模以及路由信息传递的数量都会大大减少。</p>
 <p>STUB区域是一种可选的配置属性，但并不是每个区域都符合配置的条件。通常来说，STUB区域位于自治系统的边界，是那些只有一个ABR的非骨干区域。</p>
 <p>为保证到自治系统外的路由依旧可达，该区域的ABR将生成一条缺省路由，并发布给STUB区域中的其他非ABR路由器。</p>
@@ -689,33 +795,43 @@ OSPF域可以有ASBR而没有ABR，OSPF路由器可以同时是ASBR和ABR。</p>
 <li>STUB区域内不能存在ASBR，即自治系统外部的路由不能在本区域内传播。</li>
 <li>虚连接不能穿过STUB区域。</li>
 </ul>
-<h2 id="五、校验机制">五、校验机制</h2>
-<h3 id="LFA-FRR">LFA FRR</h3>
-<p>IP FRR(Fast Reroute)采用LFA(Loop-Free Alternate，无环自动备用路径)算法</p>
+<h2 id="五校验机制">五、校验机制</h2>
+<h3 id="lfa-frr">LFA FRR</h3>
+<p>IP FRR(Fast Reroute)采用LFA(Loop-Free
+Alternate，无环自动备用路径)算法</p>
 <blockquote>
 <p>为了实现一条<strong>次优且无环</strong>的备份路径，防止流量倒灌</p>
-<p>需满足该公式：$Cost_{(备用→终点)} &lt;Cost_{(原起点→终点)}+Cost_{(原起点→备用)}$</p>
+<p>需满足该公式：<span class="math inline">\(Cost_{(备用→终点)}
+&lt;Cost_{(原起点→终点)}+Cost_{(原起点→备用)}\)</span></p>
 </blockquote>
 <p>Example：</p>
-<p align="center">   <img src="https://kroki.io/graphviz/svg/eNq9VN9PE0EQfuev2GBMNDmO-9GipLkXjMQ3TfuIxBS6tBfPu6ZXQCUkpoINCIgpklALQsWkRiiCJrSFwv9iunvXJ_8FZ7v1SksfxAcerrfduZn5Zr5vJpoIx2PoYejRMJrpQai_H5H5Ajl8RbePyem7-vyyUy3CfbTx2YgdN3QT2xr7FZBpRbCN45osSgJKhM2n7I8k-gU0YZlJM_wMa70PsDGFk_p4uHc0AHGYCxrpZuZOtv4Sa7IsoDg2p_VIMgbB_Q1PHIn-g6d0yZMX1dfXh9ziGdlNu4spJ1UmxWytvMCuud3NbLoLR7XSCSkfuccHztoh2SiAKShD0bFwHGtj1nMB2ckXBuROWJNmBEeECd0wcIQBgMO4ZVgJrfeGOnRXGR5oouKX0zE9Cf3isCRxUEAxrEdjSTgPCMgIj2FD6w3Kj80RFESjvFNB5foyK-2Z1evLrF7I3MZEZZcu52mugkIy3Ie60tAViuIfUO8PXR1KqNH-X-m5i2BkSbqJnJ1i7XyTlo7opwzJFRgYuv-5VnpL18tOdg7ds-wkKA_R9TTN7XF9NTA_YZa_wE2LjUwzWdOlU7oeLMVDQL9uQDtAt85awRMmCvoYT74r8zQ8eEeV_4cn3yWeaO4bzefJ_qpTfc-qnRwzcfdiZUmURFVU-1WlveC26XROMnRrjhym6N5OrbRCtlLOx5_koFyvrjbHdKaxYzQbxj8AgxmADsNbgUcNoNnOD5rt72IJ-gJNuMzYQlDPnEGH3fMtuvIFEDR4RXQ7TX8UWotCFlGttAgwYVdwB3QLBMHhcl-PeS6I23yNQALAy7UMZ8DtnVtKaVCom1O6DYxwGkCCowGWuZ5dJdW8Uzn_fbpETivuzhL5_sYTX30tCzutKU-uTb5EWC4Y6IvC87dYVEREKh_qrwt0PQehuc54XR5sprMO3fI94eOFdASXWtFVkeWmSym3WvWUAjesZk5Az-wfJPFllQ==" height ="80%" width="80%" />   <br>   <span>OSPF FRR备用路径(R1→S1→R2的总cost为10)</span> </p>
-<p>当R4要成为R1的备用路径，需满足FRR条件：<br>
-$Cost_{(R4→R2→R3)} &lt;Cost_{(R1→S1→R2→R3)}+Cost_{(R1→R4)}$</p>
+<p align="center">
+<img src="https://kroki.io/graphviz/svg/eNq9VN9PE0EQfuev2GBMNDmO-9GipLkXjMQ3TfuIxBS6tBfPu6ZXQCUkpoINCIgpklALQsWkRiiCJrSFwv9iunvXJ_8FZ7v1SksfxAcerrfduZn5Zr5vJpoIx2PoYejRMJrpQai_H5H5Ajl8RbePyem7-vyyUy3CfbTx2YgdN3QT2xr7FZBpRbCN45osSgJKhM2n7I8k-gU0YZlJM_wMa70PsDGFk_p4uHc0AHGYCxrpZuZOtv4Sa7IsoDg2p_VIMgbB_Q1PHIn-g6d0yZMX1dfXh9ziGdlNu4spJ1UmxWytvMCuud3NbLoLR7XSCSkfuccHztoh2SiAKShD0bFwHGtj1nMB2ckXBuROWJNmBEeECd0wcIQBgMO4ZVgJrfeGOnRXGR5oouKX0zE9Cf3isCRxUEAxrEdjSTgPCMgIj2FD6w3Kj80RFESjvFNB5foyK-2Z1evLrF7I3MZEZZcu52mugkIy3Ie60tAViuIfUO8PXR1KqNH-X-m5i2BkSbqJnJ1i7XyTlo7opwzJFRgYuv-5VnpL18tOdg7ds-wkKA_R9TTN7XF9NTA_YZa_wE2LjUwzWdOlU7oeLMVDQL9uQDtAt85awRMmCvoYT74r8zQ8eEeV_4cn3yWeaO4bzefJ_qpTfc-qnRwzcfdiZUmURFVU-1WlveC26XROMnRrjhym6N5OrbRCtlLOx5_koFyvrjbHdKaxYzQbxj8AgxmADsNbgUcNoNnOD5rt72IJ-gJNuMzYQlDPnEGH3fMtuvIFEDR4RXQ7TX8UWotCFlGttAgwYVdwB3QLBMHhcl-PeS6I23yNQALAy7UMZ8DtnVtKaVCom1O6DYxwGkCCowGWuZ5dJdW8Uzn_fbpETivuzhL5_sYTX30tCzutKU-uTb5EWC4Y6IvC87dYVEREKh_qrwt0PQehuc54XR5sprMO3fI94eOFdASXWtFVkeWmSym3WvWUAjesZk5Az-wfJPFllQ==" height ="80%" width="80%" />
+<br> <span>OSPF FRR备用路径(R1→S1→R2的总cost为10)</span>
+</p>
+<p>当R4要成为R1的备用路径，需满足FRR条件： <span
+class="math inline">\(Cost_{(R4→R2→R3)}
+&lt;Cost_{(R1→S1→R2→R3)}+Cost_{(R1→R4)}\)</span></p>
 <p>但是计算可知：55&lt;15+10；明显公式不成立，所以此处R4无法作为R1的备用路径</p>
-<p>⚠️若该R4生效并作为备用路径，则会出现该现象：<br>
-由于$Cost_{(R4→R3)} &gt;Cost_{(R1→R3)}+Cost_{(R1→R4)}$，所以当R1→S1的链路断开时，R1默认将目的终点为R3的流量发给R4,但是因为R4的本地最优路径下一跳为R1,所以又丢回给R1,流量倒灌回去了，然后R1又会把流量丢给R4……<br>
+<p>⚠️若该R4生效并作为备用路径，则会出现该现象： 由于<span
+class="math inline">\(Cost_{(R4→R3)}
+&gt;Cost_{(R1→R3)}+Cost_{(R1→R4)}\)</span>，所以当R1→S1的链路断开时，R1默认将目的终点为R3的流量发给R4,但是因为R4的本地最优路径下一跳为R1,所以又丢回给R1,流量倒灌回去了，然后R1又会把流量丢给R4……
 Catch 22了(路由环路)</p>
-<h4 id="Super-Backbone">Super Backbone</h4>
+<h4 id="super-backbone">Super Backbone</h4>
 <blockquote>
-<p>在 BGP/MPLS IP VPN 网络中，当两个站点(Site1和Site2)都使用OSPF时，<u>PE设备在重发布路由时充当ABR 还是 ASBR</u></p>
-<p>取决于：$Domain-ID$是否匹配</p>
-<p>PE 将 BGP 路由重发布进 OSPF 时，$Domain-ID$匹配情况：</p>
+<p>在 BGP/MPLS IP VPN
+网络中，当两个站点(Site1和Site2)都使用OSPF时，<u>PE设备在重发布路由时充当ABR
+还是 ASBR</u></p>
+<p>取决于：<span class="math inline">\(Domain-ID\)</span>是否匹配</p>
+<p>PE 将 BGP 路由重发布进 OSPF 时，<span
+class="math inline">\(Domain-ID\)</span>匹配情况：</p>
 <ul>
-<li>✅→ABR， 发布Type 3 LSA                   (把MPLS骨干网视为OSPF超骨干网)</li>
-<li>❌→ASBR，发布Type 5 LSA                  (视对端站点为不同的自治系统/外部路由)</li>
+<li>✅→ABR， 发布Type 3 LSA (把MPLS骨干网视为OSPF超骨干网)</li>
+<li>❌→ASBR，发布Type 5 LSA (视对端站点为不同的自治系统/外部路由)</li>
 </ul>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">graph OSPF &#123;</span><br><span class="line">  // 全局样式配置</span><br><span class="line">  graph [splines=line, nodesep=1.0, ranksep=0.5, fontname=&quot;Helvetica&quot;];</span><br><span class="line">  node [fontname=&quot;Helvetica&quot;, fontsize=11, penwidth=1.5];</span><br><span class="line">  edge [fontname=&quot;Helvetica&quot;, fontsize=10, penwidth=1.5];</span><br><span class="line"></span><br><span class="line">  // --- 设备节点定义 ---</span><br><span class="line">  // 蓝色主干路由器</span><br><span class="line">  R1 [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#3B82F6&quot;, fontcolor=white, width=0.9, height=0.6, label=&quot;R1\n[ R ]&quot;];</span><br><span class="line">  R2 [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#3B82F6&quot;, fontcolor=white, width=0.9, height=0.6, label=&quot;R2\n[ R ]&quot;];</span><br><span class="line">  R3 [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#3B82F6&quot;, fontcolor=white, width=0.9, height=0.6, label=&quot;R3\n[ R ]&quot;];</span><br><span class="line"></span><br><span class="line">  // 蓝色交换机 S1</span><br><span class="line">  S1 [shape=box, style=&quot;filled&quot;, fillcolor=&quot;#2563EB&quot;, fontcolor=white, width=0.9, height=0.6, label=&quot;S1\n[ ⇄ ]&quot;];</span><br><span class="line"></span><br><span class="line">  // 100% 确保渲染在 S1 正下方的 Cost=10 文本节点</span><br><span class="line">  S1_Cost [shape=none, label=&quot;Cost=10&quot;, fontsize=10, height=0.2];</span><br><span class="line"></span><br><span class="line">  // 橙色备用路由器 R4</span><br><span class="line">  R4 [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#F97316&quot;, fontcolor=white, width=0.9, height=0.6, label=&quot;R4\n[ R ]&quot;];</span><br><span class="line"></span><br><span class="line">  // 末梢子网</span><br><span class="line">  Subnet [shape=none, label=&quot;10.0.3.3/32&quot;, fontsize=10];</span><br><span class="line"></span><br><span class="line">  // --- 结构层次与垂直对齐 ---</span><br><span class="line">  &#123; rank=same; R1; S1; R2; R3; &#125;</span><br><span class="line">  &#123; rank=same; S1_Cost; &#125;</span><br><span class="line">  &#123; rank=same; R4; Subnet; &#125;</span><br><span class="line"></span><br><span class="line">  // --- 链路连接与 Cost 标注 ---</span><br><span class="line">  // 1. 上层主链路 (S1 垂直连接 S1_Cost 文本)</span><br><span class="line">  R1 -- S1;</span><br><span class="line">  S1 -- R2;</span><br><span class="line">  S1 -- S1_Cost [style=invis, weight=100]; // 隐形线，强行将 Cost=10 锚定在 S1 下方</span><br><span class="line">  R2 -- R3 [label=&quot;Cost=5&quot;];</span><br><span class="line"></span><br><span class="line">  // 2. 底部斜线备用链路</span><br><span class="line">  R1 -- R4 [label=&quot;Cost=10&quot;];</span><br><span class="line">  R4 -- R2 [label=&quot;Cost=50&quot;];</span><br><span class="line"></span><br><span class="line">  // 3. R3 挂载子网</span><br><span class="line">  R3 -- Subnet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://taypink.github.io">taypink</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://taypink.github.io/posts/2400a6ce.html">https://taypink.github.io/posts/2400a6ce.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://taypink.github.io" target="_blank">taypink</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">taypink</div><div class="author-info__description">懒得写描述</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">68</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/taypink" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E3%80%81%E6%8A%A5%E6%96%87%EF%BC%9A"><span class="toc-text">一 、报文：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B"><span class="toc-text">报文类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%BB%E5%B1%85%E5%85%B3%E7%B3%BB%E5%BB%BA%E7%AB%8B"><span class="toc-text">邻居关系建立</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="toc-text">状态机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E6%9D%A1%E4%BB%B6"><span class="toc-text">建立条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%A5%E6%96%87%E8%AE%A4%E8%AF%81"><span class="toc-text">报文认证</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%BD%91%E7%BB%9C%E7%B1%BB%E5%9E%8B-%E8%A7%92%E8%89%B2"><span class="toc-text">二、网络类型&amp;角色</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Network-Type"><span class="toc-text">Network Type</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DR%E9%80%89%E4%B8%BE%E6%9D%A1%E4%BB%B6"><span class="toc-text">DR选举条件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Broadcast-%E9%80%89%E4%B8%BEDR"><span class="toc-text">Broadcast 选举DR</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">路由器类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E7%B1%BBLSA-%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1"><span class="toc-text">六类LSA&amp;外部路由</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LSA%E7%B1%BB%E5%9E%8B"><span class="toc-text">LSA类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1"><span class="toc-text">外部路由</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%B7%AF%E7%94%B1%E8%81%9A%E5%90%88-%E8%BF%87%E6%BB%A4%EF%BC%9A"><span class="toc-text">三、路由聚合&amp;过滤：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%9A%E5%90%88"><span class="toc-text">聚合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%EF%BC%9A"><span class="toc-text">过滤：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-text">负载均衡</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81OSPF%E5%8C%BA%E5%9F%9F%E4%B8%8E%E8%BF%87%E6%BB%A4"><span class="toc-text">四、OSPF区域与过滤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F-%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1%E7%94%9F%E6%88%90"><span class="toc-text">特殊区域 默认路由生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NSSA%E5%8C%BA%E5%9F%9F%EF%BC%9A"><span class="toc-text">NSSA区域：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Stub%E5%8C%BA%E5%9F%9F%EF%BC%9A"><span class="toc-text">Stub区域：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%A0%A1%E9%AA%8C%E6%9C%BA%E5%88%B6"><span class="toc-text">五、校验机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LFA-FRR"><span class="toc-text">LFA FRR</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Super-Backbone"><span class="toc-text">Super Backbone</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2026 By taypink</div><div class="footer_custom_text">别翻了，到底啦！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://taypink.github.io">taypink</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://taypink.github.io/posts/2400a6ce.html">https://taypink.github.io/posts/2400a6ce.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://taypink.github.io" target="_blank">taypink</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">taypink</div><div class="author-info__description">懒得写描述</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">68</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/taypink" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E6%8A%A5%E6%96%87"><span class="toc-text">一 、报文：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B"><span class="toc-text">报文类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%BB%E5%B1%85%E5%85%B3%E7%B3%BB%E5%BB%BA%E7%AB%8B"><span class="toc-text">邻居关系建立</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="toc-text">状态机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E6%9D%A1%E4%BB%B6"><span class="toc-text">建立条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%A5%E6%96%87%E8%AE%A4%E8%AF%81"><span class="toc-text">报文认证</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E7%BD%91%E7%BB%9C%E7%B1%BB%E5%9E%8B%E8%A7%92%E8%89%B2"><span class="toc-text">二、网络类型&amp;角色</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#network-type"><span class="toc-text">Network Type</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#dr%E9%80%89%E4%B8%BE%E6%9D%A1%E4%BB%B6"><span class="toc-text">DR选举条件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#broadcast-%E9%80%89%E4%B8%BEdr"><span class="toc-text">Broadcast 选举DR</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">路由器类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E7%B1%BBlsa%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1"><span class="toc-text">六类LSA&amp;外部路由</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lsa%E7%B1%BB%E5%9E%8B"><span class="toc-text">LSA类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1"><span class="toc-text">外部路由</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E8%B7%AF%E7%94%B1%E8%81%9A%E5%90%88%E8%BF%87%E6%BB%A4"><span class="toc-text">三、路由聚合&amp;过滤：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%9A%E5%90%88"><span class="toc-text">聚合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4"><span class="toc-text">过滤：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-text">负载均衡</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9Bospf%E5%8C%BA%E5%9F%9F%E4%B8%8E%E8%BF%87%E6%BB%A4"><span class="toc-text">四、OSPF区域与过滤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F-%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1%E7%94%9F%E6%88%90"><span class="toc-text">特殊区域 默认路由生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nssa%E5%8C%BA%E5%9F%9F"><span class="toc-text">NSSA区域：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stub%E5%8C%BA%E5%9F%9F"><span class="toc-text">Stub区域：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E6%A0%A1%E9%AA%8C%E6%9C%BA%E5%88%B6"><span class="toc-text">五、校验机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lfa-frr"><span class="toc-text">LFA FRR</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#super-backbone"><span class="toc-text">Super Backbone</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2026 By taypink</div><div class="footer_custom_text">别翻了，到底啦！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
   if (typeof pangu === 'object') pangu.autoSpacingPage()
   else {
     getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
