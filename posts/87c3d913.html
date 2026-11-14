@@ -1,0 +1,424 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo迁移Astro分析 | taypink</title><meta name="author" content="taypink"><meta name="copyright" content="taypink"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="categories: Lifeline plan time：27Y 一、 方案构造  Old：Hexo + Butterfly + GitHub Pages (单公开仓库) + PicGo + 阿里云 OSS New：Astro 引擎 + 传统博客主题(暂定) + Shiki (Expressive Code) + 原生 Mermaid &#x2F; 本地 Kroki 容器 + Pagefi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo迁移Astro分析">
+<meta property="og:url" content="https://taypink.github.io/posts/87c3d913.html">
+<meta property="og:site_name" content="taypink">
+<meta property="og:description" content="categories: Lifeline plan time：27Y 一、 方案构造  Old：Hexo + Butterfly + GitHub Pages (单公开仓库) + PicGo + 阿里云 OSS New：Astro 引擎 + 传统博客主题(暂定) + Shiki (Expressive Code) + 原生 Mermaid &#x2F; 本地 Kroki 容器 + Pagefi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/98171449?v=4">
+<meta property="article:published_time" content="2026-11-09T13:45:25.000Z">
+<meta property="article:modified_time" content="2026-11-12T17:27:00.857Z">
+<meta property="article:author" content="taypink">
+<meta property="article:tag" content="taypink">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://avatars.githubusercontent.com/u/98171449?v=4"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://taypink.github.io/posts/87c3d913.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"距离这篇文章发布有","messageNext":"天了，请注意文章时效性。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-right"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo迁移Astro分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2026-11-13 01:27:00'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/copyright.css"><link rel="stylesheet" href="/css/fish.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-github-alerts/styles/all.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">75</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top_cute.png')"><nav id="nav"><span id="blog-info"><a href="/" title="taypink"><span class="site-name">taypink</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Hexo迁移Astro分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-11-09T13:45:25.000Z" title="发表于 2026-11-09 21:45:25">2026-11-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-11-12T17:27:00.857Z" title="更新于 2026-11-13 01:27:00">2026-11-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Lifeline/">Lifeline</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Hexo迁移Astro分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="categories-lifeline">categories: Lifeline</h2>
+<p>plan time：27Y</p>
+<h2 id="一-方案构造">一、 方案构造</h2>
+<ul>
+<li>Old：Hexo + Butterfly + GitHub Pages (单公开仓库) + PicGo + 阿里云
+OSS</li>
+<li>New：Astro 引擎 + 传统博客主题(暂定) + Shiki (Expressive Code) +
+原生 Mermaid / 本地 Kroki 容器 + Pagefind + 双仓库隔离(Private 源码
+-&gt; GitHub Actions -&gt; Public 静态 Pages) + PicGo (WebP) +
+Cloudflare R2 + 个人独立域名</li>
+</ul>
+<hr />
+<h2 id="二-核心选型背景与迁移考量">二、 核心选型背景与迁移考量</h2>
+<h3 id="为什么放弃-wordpresshugo-与-hexo转向-astro">1. 为什么放弃
+WordPress、Hugo 与 Hexo，转向 Astro？</h3>
+<p>考虑到动态博客部署麻烦，日后维护也折腾，坚决选择去 JS、纯静态的方案。
+* WordPress：动态博客太重，涉及数据库和动态环境维护。 *
+Hugo：虽然速度快，但 Go Template 模板语法很难写，用起来反直觉。 *
+Hexo：历史包袱太重，各种小问题积攒多年。碰巧刷到有人迁移博客，深入了解后发现
+Astro 的现代化设计刚好能解决我目前所有的痛点。 * MkDocs Material:
+要手写语法高亮、不能自由调节布局</p>
+<h3 id="多层级子目录与路由设计对齐-netbox-资产思路">2.
+多层级子目录与路由设计（对齐 NetBox 资产思路）</h3>
+<ul>
+<li>痛点：Hexo
+对深层级目录支持很弱，文件夹层级一旦嵌套深了，文章分类和路由就容易出问题。</li>
+<li>Astro 优势：Astro 的 Content Collections
+原生支持任意深度的子文件夹，能直接按照文件夹的物理层级生成清爽的
+URL（比如 /network/routing/bgp/）。这与平时做网工规划时，使用 NetBox
+整理架构树和设备层级的思路完全契合。</li>
+<li>主题选择：不考虑官方的 Starlight 这类文档主题，也不考虑双栏
+Wiki。我还是更习惯传统博客的阅读质感，后续会在社区挑选干净的主题作为基底，重点把侧边目录栏（TOC）和多级分类展示调通。</li>
+</ul>
+<h3 id="告别本地环境折磨与强刷双仓库隔离-github-actions">3.
+告别本地环境折磨与强刷（双仓库隔离 + GitHub Actions）</h3>
+<ul>
+<li>本地环境痛点：Hexo
+时代简中圈教程大多只教本地部署，导致电脑里必须同时保留源码和编译出来的静态文件。不仅占空间，对
+Node.js 版本要求还极其苛刻。之前我从笔记本迁移到 PC
+上写博客，光是重新配置 Node.js 和打包环境就折腾了半天。</li>
+<li>刷新痛点：Hexo 本地经常遇到缓存残留，总得反复敲 hexo clean
+甚至手动删 public 文件夹，浏览器还得频繁按 Ctrl+F5
+强制刷新才能看到变动。</li>
+<li>仓库安全问题：如果直接把放 Markdown
+原文的仓库设为公开，即便文章加了密码或者标记了草稿，别人点进 GitHub
+仓库照样能直接看明文，写一些涉及真实网络拓扑或未公开笔记时很不安全。</li>
+<li>Astro 解决方案：
+<ul>
+<li>构建与缓存：Astro 底层基于 Vite
+构建。静态资源文件名会自动生成内容哈希，配合入口文件的协商缓存，改了内容重新打包后，浏览器会自动精准拉取新文件，没变的内容秒读缓存，彻底告别强刷。</li>
+<li>私有源码仓（Private）：平时在本地只当纯编辑器使用，不装复杂的全局打包依赖。写完直接
+Git push
+推到私有的源码仓库，未完成的草稿和敏感网络配置对外界完全不可见。</li>
+<li>公开静态仓（Public）：由 GitHub Actions
+在云端容器免费安装依赖并编译，随后把生成的静态 HTML 自动推送到公开的
+GitHub Pages 仓库对外展示。既解决了源码隐私问题，又白嫖了免费托管。</li>
+</ul></li>
+</ul>
+<h3 id="契合网工职业特性厂商配置语法高亮">4.
+契合网工职业特性：厂商配置语法高亮</h3>
+<ul>
+<li>痛点：日常记录很多网络设备的排错日志和配置，Hexo 和 Butterfly
+自带的代码高亮对网工非常不友好，完全不支持
+Cisco、Arista、华为等厂商的关键词高亮，读起来就是一整块白字，排错对照极其费劲。</li>
+<li>Astro 优势：原生支持 Shiki 和 Expressive Code，它底层直接使用和 VS
+Code 一样的 TextMate 语法规则。我可以直接把 VS Code
+里的厂商高亮模板抽出来给它用，直接还原专业级高亮，甚至还能实现终端窗口外框和行高亮对比。</li>
+</ul>
+<h3 id="架构图与报文图编译告别手动去-kroki-复制中转">5.
+架构图与报文图编译：告别手动去 Kroki 复制中转</h3>
+<ul>
+<li>痛点：网工文章极其依赖拓扑图、网络报文格式图和时序图。Hexo
+自身处理不了矢量图，以前画 PlantUML、Graphviz 或者 Packet Diagram
+报文图，每次都得先去 Kroki 官网手动生成
+SVG，再复制出来贴进文章；文章末尾还得另外备份一份图表源码。改动拓扑时两头都要改，维护起来太累了。</li>
+<li>解决思路：
+<ul>
+<li>写作预览：本地用 Typora/Obsidian 配合 Kroki
+插件，保持秒级实时预览。</li>
+<li>Mermaid 走原生：Mermaid 属于轻量 JS，直接使用 Astro
+原生插件处理，不需要让 GitHub Actions
+多开无头浏览器容器，减轻服务器负担，也原生适配暗色模式。</li>
+<li>PlantUML / Graphviz / Packet Diagram 走本地容器：为了不给 Kroki
+官方服务器添负担，在 GitHub Actions 脚本里顺手拉起一个 Kroki
+基础容器，打包时直接在本地内网生成内联 SVG，配合 GitHub
+的构建缓存，下次没改图就不重复请求。本地只管存一份纯文本代码，写完即走。</li>
+</ul></li>
+</ul>
+<h3 id="样式解耦与暗色模式适配">6. 样式解耦与暗色模式适配</h3>
+<ul>
+<li>样式同步：Butterfly 的样式跟模板绑得太死，改起来牵一发动全身。Astro
+具备组件作用域隔离，后续直接把本地 Typora/Obsidian 里看习惯的深色 CSS
+提取出来，挂在正文容器上就能直接用，完全不会影响导航栏和侧边栏。本地写文章保持纯正
+Markdown 语法，不折腾复杂的双链。</li>
+<li>SVG 滤镜适配：平时习惯看深色模式，而 Kroki
+默认吐出来的图表通常是黑线白底。后续在正文 CSS
+里专门针对图表容器加上反色滤镜，精准把黑线图翻转为白线黑底，同时避开网站
+Logo 和普通图标，防止误伤。</li>
+</ul>
+<h3 id="全文搜索与交互精简">7. 全文搜索与交互精简</h3>
+<ul>
+<li>搜索方案：文章多了之后检索是强需求。放弃 Hexo 动辄几兆、加载卡顿的
+search.xml，改用基于 Rust 的
+Pagefind。打包后自动生成分片索引，按需加载，原生支持中文，响应速度极快。</li>
+<li>评论区：博客只做个人技术沉淀和查阅备忘，不加任何评论区，保持页面纯净。</li>
+</ul>
+<h3 id="图床与域名彻底甩掉阿里云-oss">8. 图床与域名：彻底甩掉阿里云
+OSS</h3>
+<ul>
+<li>痛点：阿里云 OSS
+境外流量贵得离谱，而且每个月快到期时的营销和催费短信实在太烦人，七牛云等国内产品也不想用。</li>
+<li>解决方式：换到 Cloudflare R2，每月 10GB
+免费空间，而且完全免出站流量费。反正平时主要自己查阅，常年开着代理，以后也考虑出国，大陆晚高峰卡不卡无所谓，更不想去搞繁琐的ICP域名备案。</li>
+<li>落地细节：自己买个便宜的独立域名托管在 Cloudflare，主域名指给 GitHub
+Pages，子域名分给 R2。PicGo 安装 S3 插件对接 R2，配合 WebP
+插件在上传时自动压缩分辨率，省空间且加载更快。以前存的本地图片，后面用脚本批量上传替换即可。</li>
+</ul>
+<hr />
+<h2 id="三-待处理疑点与后续办事项to-do">三、
+待处理疑点与后续办事项（To-Do）</h2>
+<ol type="1">
+<li><p>Butterfly 主题专属标签清洗 旧文章里部分类似 note、tabs 的非标准
+Markdown
+语法，迁移时视数量决定是通过正则脚本一键替换为标准语法，还是装个插件做兼容。</p></li>
+<li><p>Astro 博客主题最终选型 对比主流的纯静态主题（如
+Fuwari、AstroPaper 等），选一个结构干净、容易注入本地 Typora
+CSS，并且能方便加上侧边目录栏的主题当基底。</p></li>
+<li><p>GitHub Actions 跨仓库推送权限配置 配置从私有源码仓向公开 Pages
+仓推送静态文件的 Deploy Key，确保本地 push
+后，云端编译打包能自动发布到公网。</p></li>
+</ol>
+<p>4.只维护一份 MD，AI 自动翻译、缓存并做“增量/段落级更新”</p>
+<p>→考虑用Github Action+Github Secrets？或者别的更优替代方案</p>
+<p>5.博客分类和tag的取舍问题？只要其中一个还是我都要？</p>
+<p>三个还是四个分类？Network(技术)、Carrer(职场、项目、规划、考证)、Life(生活、看病、书摘、)
+胡思乱想和记录呢？
+技术类文章多用tag？协议、厂商、工具、code语言、场景</p>
+<p>6.<strong>Kroki 容器的增量缓存策略</strong> ，是否需要这样做？ 在
+GitHub Actions 里起本地 Kroki 容器时，建议编写一个简单的自定义 Remark
+插件（约 40 行 TS 代码）：对 Markdown 里的 <code>plantuml</code> /
+<code>graphviz</code> / <code>packetdiag</code> 代码块内容计算
+<strong>SHA-256 哈希</strong>，先去
+<code>.astro/kroki-cache/&lt;hash&gt;.svg</code> 找缓存，未命中再发 HTTP
+请求给 <code>http://localhost:8000</code> 并落盘。随后在 GitHub Actions
+里用 <code>actions/cache</code> 缓存 <code>.astro/kroki-cache</code>
+目录——这样即使全站有几百张拓扑图和报文图，每次新增文章构建也只需几秒钟。</p>
+<p>7.<strong>SVG 暗色模式滤镜用“色相旋转”保真</strong> 在正文 CSS 中针对
+Kroki 生成的 SVG 容器做暗黑模式适配时，不要只写
+<code>filter: invert(1);</code>，强烈建议写成：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 黑白反转的同时把色相转回 180 度，防止拓扑图里的红/绿链路状态颜色变成青/紫 */</span></span><br><span class="line"><span class="selector-class">.dark</span> <span class="selector-class">.kroki-diagram</span> svg &#123;</span><br><span class="line">  <span class="attribute">filter</span>: <span class="built_in">invert</span>(<span class="number">0.92</span>) <span class="built_in">hue-rotate</span>(<span class="number">180deg</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>8.<strong>Expressive Code 与 Shiki 协同</strong> 在 Astro 中直接安装
+<code>astro-expressive-code</code> 即可（它底层已经完整封装了
+Shiki）。你只需把 VS Code 插件里的厂商语法 <code>.json</code>
+文件放进项目目录，在 <code>ec.config.mjs</code> 的
+<code>shiki.langs</code> 数组里引入，就能直接在 Markdown 里使用
+<code>cisco` 或</code>huawei` 并获得终端边框和代码行高亮能力。</p>
+<p>9.Material for MkDoc的 <strong>Code
+Annotations（代码注释气泡）</strong>——在代码行尾放一个 <code>(1)</code>
+小加号，点击就能弹出对这行网络配置的详细解释</p>
+<h3 id="折腾笔记迁移与-ai-翻译是典型的拖延伪勤奋">折腾笔记迁移与 AI
+翻译”是典型的拖延伪勤奋</h3>
+<ul>
+<li>想把笔记搬到 Astro、接入 AI
+翻译，本质上是在用“搭建完美的学习工具”来逃避“痛苦的开口练习”。</li>
+<li>机器翻译出来的英文是静态文本，留在笔记里救不了你的口语；你在面试或工作中需要的是<strong>即时流利度（Spontaneous
+Fluency）</strong>。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://taypink.github.io">taypink</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://taypink.github.io/posts/87c3d913.html">https://taypink.github.io/posts/87c3d913.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://taypink.github.io" target="_blank">taypink</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/98171449?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">taypink</div><div class="author-info__description">懒得写描述</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">75</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/taypink" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#categories-lifeline"><span class="toc-text">categories: Lifeline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E6%96%B9%E6%A1%88%E6%9E%84%E9%80%A0"><span class="toc-text">一、 方案构造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E6%A0%B8%E5%BF%83%E9%80%89%E5%9E%8B%E8%83%8C%E6%99%AF%E4%B8%8E%E8%BF%81%E7%A7%BB%E8%80%83%E9%87%8F"><span class="toc-text">二、 核心选型背景与迁移考量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%94%BE%E5%BC%83-wordpresshugo-%E4%B8%8E-hexo%E8%BD%AC%E5%90%91-astro"><span class="toc-text">1. 为什么放弃
+WordPress、Hugo 与 Hexo，转向 Astro？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%B1%82%E7%BA%A7%E5%AD%90%E7%9B%AE%E5%BD%95%E4%B8%8E%E8%B7%AF%E7%94%B1%E8%AE%BE%E8%AE%A1%E5%AF%B9%E9%BD%90-netbox-%E8%B5%84%E4%BA%A7%E6%80%9D%E8%B7%AF"><span class="toc-text">2.
+多层级子目录与路由设计（对齐 NetBox 资产思路）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%8A%E5%88%AB%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E6%8A%98%E7%A3%A8%E4%B8%8E%E5%BC%BA%E5%88%B7%E5%8F%8C%E4%BB%93%E5%BA%93%E9%9A%94%E7%A6%BB-github-actions"><span class="toc-text">3.
+告别本地环境折磨与强刷（双仓库隔离 + GitHub Actions）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%91%E5%90%88%E7%BD%91%E5%B7%A5%E8%81%8C%E4%B8%9A%E7%89%B9%E6%80%A7%E5%8E%82%E5%95%86%E9%85%8D%E7%BD%AE%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE"><span class="toc-text">4.
+契合网工职业特性：厂商配置语法高亮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E5%9B%BE%E4%B8%8E%E6%8A%A5%E6%96%87%E5%9B%BE%E7%BC%96%E8%AF%91%E5%91%8A%E5%88%AB%E6%89%8B%E5%8A%A8%E5%8E%BB-kroki-%E5%A4%8D%E5%88%B6%E4%B8%AD%E8%BD%AC"><span class="toc-text">5.
+架构图与报文图编译：告别手动去 Kroki 复制中转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B7%E5%BC%8F%E8%A7%A3%E8%80%A6%E4%B8%8E%E6%9A%97%E8%89%B2%E6%A8%A1%E5%BC%8F%E9%80%82%E9%85%8D"><span class="toc-text">6. 样式解耦与暗色模式适配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E4%B8%8E%E4%BA%A4%E4%BA%92%E7%B2%BE%E7%AE%80"><span class="toc-text">7. 全文搜索与交互精简</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%BA%8A%E4%B8%8E%E5%9F%9F%E5%90%8D%E5%BD%BB%E5%BA%95%E7%94%A9%E6%8E%89%E9%98%BF%E9%87%8C%E4%BA%91-oss"><span class="toc-text">8. 图床与域名：彻底甩掉阿里云
+OSS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E5%BE%85%E5%A4%84%E7%90%86%E7%96%91%E7%82%B9%E4%B8%8E%E5%90%8E%E7%BB%AD%E5%8A%9E%E4%BA%8B%E9%A1%B9to-do"><span class="toc-text">三、
+待处理疑点与后续办事项（To-Do）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0%E8%BF%81%E7%A7%BB%E4%B8%8E-ai-%E7%BF%BB%E8%AF%91%E6%98%AF%E5%85%B8%E5%9E%8B%E7%9A%84%E6%8B%96%E5%BB%B6%E4%BC%AA%E5%8B%A4%E5%A5%8B"><span class="toc-text">折腾笔记迁移与 AI
+翻译”是典型的拖延伪勤奋</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2026 By taypink</div><div class="footer_custom_text">别翻了，到底啦！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><script async src="/js/title.js"></script><script src="/js/category-fold.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
